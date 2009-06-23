@@ -1,0 +1,6 @@
+<h2><%=h @message.subject %></h2>
+
+<p><strong>From:</strong> <%=h @message.author.username %></p>
+<p><strong>Received:</strong> <%= @message.created_at.to_s(:long) %></p>
+
+<%= simple_format @message.body %>

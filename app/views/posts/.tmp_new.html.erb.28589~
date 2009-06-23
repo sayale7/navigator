@@ -1,0 +1,6 @@
+<h1>Neuer Post</h1>
+<%= render :partial => 'form' %>
+<p>
+    <%= f.submit 'Create' %>
+</p>
+<%= link_to 'Back', posts_path %>

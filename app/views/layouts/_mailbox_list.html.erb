@@ -1,0 +1,7 @@
+	<ul id="submenu">
+  	<p><%= link_to "Neue Nachricht", new_sent_path %></p>
+	  <p><strong>Mailboxes</strong></p>
+	    <li><%= link_to "Posteingang", inbox_path %></li>
+	    <li><%= link_to "Gesendete", :controller => "sent", :action => "index" %></li>
+ 
+	</ul>

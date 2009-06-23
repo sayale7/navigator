@@ -1,0 +1,16 @@
+<% form_for(@post) do |f| %>
+<%= f.error_messages %>
+<p>
+    <%= f.label :title %>
+    <br/>
+    <%= f.text_field :title %>
+</p>
+<p>
+    <label for="body">
+        Content
+    </label>
+    <br/>
+    <%= fckeditor_textarea("post", "body", :height => '500') %>
+</p>
+<% end %>
+</p>

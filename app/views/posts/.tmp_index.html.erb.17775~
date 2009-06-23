@@ -1,0 +1,15 @@
+<div class="clear">
+    <%= link_to 'New post', new_post_path %>
+</div>
+<% @posts.reverse.each do |post| %>
+<div class="clear">
+    <h1><%=h post.title %>
+    </h1>
+    <p>
+        <%= simple_format post.body %>
+    </p>
+</div>
+<div class="clear">
+    <%= link_to "Löschen", post,  :method => :delete %>
+</div>
+<% end %>
