@@ -87,7 +87,7 @@ FCKConfig.SourcePopup	= false ;
 FCKConfig.ToolbarStartExpanded	= true ;
 FCKConfig.ToolbarCanCollapse	= true ;
 FCKConfig.IgnoreEmptyParagraphValue = true ;
-FCKConfig.PreserveSessionOnFileBrowser = false ;
+FCKConfig.PreserveSessionOnFileBrowser = true ;
 FCKConfig.FloatingPanelsZIndex = 10000 ;
 FCKConfig.HtmlEncodeOutput = false ;
 
