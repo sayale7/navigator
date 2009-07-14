@@ -1,0 +1,17 @@
+<% form_for @page do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :parent_id %>
+    <%= f.collection_select :parent_id, Page.all(:order => "name"), :id, :name, :include_blank => true %>
+  </p>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+<p>
+	<%= fckeditor_textarea("page", "content", :height => '500')%></p>
+</p>
+
+  <p><%= f.submit "Submit" %></p>
+
+<% end %>

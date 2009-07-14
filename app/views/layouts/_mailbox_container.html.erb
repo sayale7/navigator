@@ -1,0 +1,14 @@
+<p>
+    <%= link_to "Neue Nachricht", new_sent_path %>
+</p>
+<br/>
+<p style="text-align:left;">
+    <strong>Postfächer</strong>
+</p>
+<div id="mailbox_inbox">
+    <%= render :partial => "layouts/inbox_link" %>
+</div>
+<div id="mailbox_sent">
+    <%= render :partial => "layouts/sent_link" %>
+</div>
+

@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @role.name %>
+</p>
+
+<p>
+  <b>Authorizable type:</b>
+  <%=h @role.authorizable_type %>
+</p>
+
+<p>
+  <b>Authorizable:</b>
+  <%=h @role.authorizable_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Back', roles_path %>

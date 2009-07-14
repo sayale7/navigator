@@ -1,0 +1,15 @@
+<% form_for(@roles_users) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :user_id %>
+	<%= collection_select(:roles_users, :user_id, User.all, :id, :username) %>
+  </p>
+  <p>
+    <%= f.label :role_id %>
+	<%= collection_select(:roles_users, :role_id, Role.all, :id, :name) %>
+  </p>
+  <p>
+    <%= f.submit 'Speichern' %>
+  </p>
+<% end %>

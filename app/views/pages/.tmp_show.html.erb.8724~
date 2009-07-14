@@ -1,0 +1,14 @@
+<% title @page.name, false %>
+
+<p>
+<% for page in @page.ancestors.reverse %>
+  <%= link_to h(page.name), page %> &gt;
+<% end %>
+</p>
+
+<%= simple_format @page.content %>
+
+<p>
+  <%= link_to "Edit", edit_page_path(@page) %> |
+  <%= link_to "Destroy", @page, :confirm => 'Are you sure?', :method => :delete %> 
+</p>

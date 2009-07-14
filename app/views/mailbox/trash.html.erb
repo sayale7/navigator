@@ -1,0 +1,12 @@
+<div id="inbox">
+   <%= render :partial => "layouts/trash_list" %>
+</div>
+<div id="mailbox_list">
+    <%= render :partial => "layouts/mailbox_container" %>
+</div>
+<%= drop_receiving_element("mailbox_inbox",
+:accept => "inbox_messages",
+:complete => "Element.hide('spinner')",
+:loading => "Element.show('spinner')",
+:hoverclass => "drophover",
+:url => {:controller => "messages", :action => "undelete"}) %>
