@@ -1,31 +1,40 @@
 class SentController < ApplicationController
   
+  
   def index
-      @messages = current_user.sent_messages.paginate :per_page => 10, :page => params[:page], :order => "created_at DESC"
+    @messages = current_user.sent_messages.paginate :per_page => 5, :page => params[:page], :order => "created_at DESC"
+  end
+  
+  def show
+    @message = current_user.sent_messages.find(params[:id])
+  end
+  
+  def new
+    @message = current_user.sent_messages.build
+    get_users
+  end
+  
+  def create
+    @message = current_user.sent_messages.build(params[:message])
+    if @message.save
+      flash[:notice] = "Nachricht geschickt."
+      redirect_to :action => "index"
+    else
+      get_users
+      render :action => "new"
     end
-
-    def show
-      @message = current_user.sent_messages.find(params[:id])
+  end
+  
+  private
+  
+  def get_users
+    @users = User.all()
+    @namesarray = Array.new
+    @idsarray = Array.new
+    for user in @users do
+      @namesarray.push(user.username)
+      @idsarray.push(user.email)
     end
-
-    def new
-      @message = current_user.sent_messages.build
-    end
-
-    def create
-      begin
-      @message = current_user.sent_messages.build(params[:message])
-
-      if @message.save
-        flash[:notice] = "Message sent."
-        redirect_to :action => "index"
-      else
-        render :action => "new"
-      end
-    rescue  RuntimeError => boom
-        flash[:notice] = 'Der Empfänger muss ausgewählt sein'
-       render :action => "new"
-    end
-    end
-
+  end
+  
 end

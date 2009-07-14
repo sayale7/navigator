@@ -2,7 +2,6 @@ class PagesController < ApplicationController
   
   access_control do   
     allow :admin
-    #allow logged_in, :except => :destroy
     allow logged_in, :to => [:index, :show]
   end
   
@@ -20,8 +19,10 @@ class PagesController < ApplicationController
   
   def create
     @page = Page.new(params[:page])
+    @page.content = @page.content.to_s.gsub("\r", "")
+    @page.content = @page.content.to_s.gsub("\n", "")
     if @page.save
-      flash[:notice] = "Successfully created page."
+      flash[:notice] = "Seite erfolgreich erstellt."
       redirect_to @page
     else
       render :action => 'new'
@@ -34,8 +35,11 @@ class PagesController < ApplicationController
   
   def update
     @page = Page.find(params[:id])
-    if @page.update_attributes(params[:page])
-      flash[:notice] = "Successfully updated page."
+    @page.update_attributes(params[:page])
+    @page.content = @page.content.to_s.gsub("\r", "")
+    @page.content = @page.content.to_s.gsub("\n", "")
+    if @page.save
+      flash[:notice] = "Seite erfolgreich geändert."
       redirect_to @page
     else
       render :action => 'edit'
@@ -44,9 +48,15 @@ class PagesController < ApplicationController
   
   def destroy
     @page = Page.find(params[:id])
-    @page.destroy
-    flash[:notice] = "Successfully destroyed page."
-    redirect_to root_url
+    @pages = Page.all(:conditions => ["parent_id = #{@page.id}"])
+    if(@pages.length > 0)
+      flash[:notice] = "Löschen Sie bitte zuerst alle Unterseiten dieser Seite."
+      redirect_to root_url
+    else
+      @page.destroy
+      flash[:notice] = "Seite erfolgreich gelöscht."
+      redirect_to root_url
+    end
   end
   
 end

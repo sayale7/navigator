@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
-  
-  access_control do   
-    #allow all
-    allow :admin
-    allow logged_in, :to => [:edit, :update, :show]
-  end
+ 
   
   def index
     @users = User.all

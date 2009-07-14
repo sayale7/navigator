@@ -1,8 +1,15 @@
 <% title "Edit Page" %>
 
-<%= render :partial => 'form' %>
-
+<% form_for @page do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
 <p>
-  <%= link_to "Show", @page %> |
-  <%= link_to "View All", pages_path %>
+	<%= fckeditor_textarea("page", "content", :height => '500')%></p>
 </p>
+
+  <p><%= f.submit "Submit" %></p>
+
+<% end %>

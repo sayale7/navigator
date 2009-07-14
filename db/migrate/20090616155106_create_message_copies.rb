@@ -4,6 +4,7 @@ class CreateMessageCopies < ActiveRecord::Migration
       t.integer :recipient_id
       t.integer :message_id
       t.integer :folder_id
+      t.boolean :deleted
 
       t.timestamps
     end

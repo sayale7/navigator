@@ -20,12 +20,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-    @post = Post.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @post }
-    end
+    destroy
   end
 
   # GET /posts/new
@@ -48,11 +43,12 @@ class PostsController < ApplicationController
   # POST /posts.xml
   def create
     @post = Post.new(params[:post])
-
+    @post.body = @post.body.to_s.gsub("\r", "")
+    @post.body = @post.body.to_s.gsub("\n", "")
     respond_to do |format|
       if @post.save
         flash[:notice] = 'Post was successfully created.'
-        format.html { redirect_to(@post) }
+        format.html { redirect_to root_url }
         format.xml  { render :xml => @post, :status => :created, :location => @post }
       else
         format.html { render :action => "new" }
@@ -65,11 +61,14 @@ class PostsController < ApplicationController
   # PUT /posts/1.xml
   def update
     @post = Post.find(params[:id])
-
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      @post.update_attributes(params[:post])
+      @post.body = @post.body.to_s.gsub("\r", "")
+      @post.body = @post.body.to_s.gsub("\n", "")
+      debugger
+    if @post.save
         flash[:notice] = 'Post was successfully updated.'
-        format.html { redirect_to(@post) }
+        format.html { redirect_to root_url }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -81,11 +80,11 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.xml
   def destroy
+    debugger
     @post = Post.find(params[:id])
     @post.destroy
-
     respond_to do |format|
-      format.html { redirect_to(posts_url) }
+      format.html { redirect_to root_url }
       format.xml  { head :ok }
     end
   end

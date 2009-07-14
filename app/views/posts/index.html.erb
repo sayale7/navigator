@@ -9,8 +9,12 @@
         <%= simple_format post.body %>
     </p>
 </div>
+<br/>
 <div class="clear">
-	<%= link_to 'Edit', edit_post_path(@posts) %> | 
-    <%= link_to "Löschen", post,  :method => :delete %>
+	<%= link_to 'Edit', :controller => "posts", :action => "edit", :id => post.id %> 
+	<% if current_user.has_role? :admin %>
+	| 
+    <%= link_to "Löschen", :controller => "posts", :action => "destroy", :id => post.id %>
+	<% end %>
 </div>
 <% end %>

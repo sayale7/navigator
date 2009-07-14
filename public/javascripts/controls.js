@@ -5,18 +5,18 @@
 //  Richard Livsey
 //  Rahul Bhargava
 //  Rob Wills
-//
+// 
 // script.aculo.us is freely distributable under the terms of an MIT-style license.
 // For details, see the script.aculo.us web site: http://script.aculo.us/
 
-// Autocompleter.Base handles all the autocompletion functionality
+// Autocompleter.Base handles all the autocompletion functionality 
 // that's independent of the data source for autocompletion. This
 // includes drawing the autocompletion menu, observing keyboard
 // and mouse events, and similar.
 //
-// Specific autocompleters need to provide, at the very least,
+// Specific autocompleters need to provide, at the very least, 
 // a getUpdatedChoices function that will be invoked every time
-// the text inside the monitored textbox changes. This method
+// the text inside the monitored textbox changes. This method 
 // should get the text for which to provide autocompletion by
 // invoking this.getToken(), NOT by directly accessing
 // this.element.value. This is to allow incremental tokenized
@@ -30,8 +30,8 @@
 // will incrementally autocomplete with a comma as the token.
 // Additionally, ',' in the above example can be replaced with
 // a token array, e.g. { tokens: [',', '\n'] } which
-// enables autocompletion on multiple tokens. This is most
-// useful when one of the tokens is \n (a newline), as it
+// enables autocompletion on multiple tokens. This is most 
+// useful when one of the tokens is \n (a newline), as it 
 // allows smart autocompletion after linebreaks.
 
 if(typeof Effect == 'undefined')
@@ -41,12 +41,12 @@ var Autocompleter = { };
 Autocompleter.Base = Class.create({
   baseInitialize: function(element, update, options) {
     element          = $(element);
-    this.element     = element;
-    this.update      = $(update);
-    this.hasFocus    = false;
-    this.changed     = false;
-    this.active      = false;
-    this.index       = 0;
+    this.element     = element; 
+    this.update      = $(update);  
+    this.hasFocus    = false; 
+    this.changed     = false; 
+    this.active      = false; 
+    this.index       = 0;     
     this.entryCount  = 0;
     this.oldElementValue = this.element.value;
 
@@ -59,28 +59,28 @@ Autocompleter.Base = Class.create({
     this.options.tokens       = this.options.tokens || [];
     this.options.frequency    = this.options.frequency || 0.4;
     this.options.minChars     = this.options.minChars || 1;
-    this.options.onShow       = this.options.onShow ||
-      function(element, update){
-        if(!update.style.position || update.style.position=='absolute') {
-          update.style.position = 'absolute';
+    this.options.onShow       = this.options.onShow || 
+      function(element, update){ 
+        if(!$(update).getStyle("position") || $(update).getStyle("position")=='absolute') {
+          $(update).setStyle({position : 'absolute'});
           Position.clone(element, update, {
-            setHeight: false,
+            setHeight: false, 
             offsetTop: element.offsetHeight
           });
         }
         Effect.Appear(update,{duration:0.15});
       };
-    this.options.onHide = this.options.onHide ||
+    this.options.onHide = this.options.onHide || 
       function(element, update){ new Effect.Fade(update,{duration:0.15}) };
 
-    if(typeof(this.options.tokens) == 'string')
+    if(typeof(this.options.tokens) == 'string') 
       this.options.tokens = new Array(this.options.tokens);
     // Force carriage returns as token delimiters anyway
     if (!this.options.tokens.include('\n'))
       this.options.tokens.push('\n');
 
     this.observer = null;
-
+    
     this.element.setAttribute('autocomplete','off');
 
     Element.hide(this.update);
@@ -91,10 +91,10 @@ Autocompleter.Base = Class.create({
 
   show: function() {
     if(Element.getStyle(this.update, 'display')=='none') this.options.onShow(this.element, this.update);
-    if(!this.iefix &&
+    if(!this.iefix && 
       (Prototype.Browser.IE) &&
       (Element.getStyle(this.update, 'position')=='absolute')) {
-      new Insertion.After(this.update,
+      new Insertion.After(this.update, 
        '<iframe id="' + this.update.id + '_iefix" '+
        'style="display:none;position:absolute;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);" ' +
        'src="javascript:false;" frameborder="0" scrolling="no"></iframe>');
@@ -102,11 +102,11 @@ Autocompleter.Base = Class.create({
     }
     if(this.iefix) setTimeout(this.fixIEOverlapping.bind(this), 50);
   },
-
+  
   fixIEOverlapping: function() {
-    Position.clone(this.update, this.iefix, {setTop:(!this.update.style.height)});
-    this.iefix.style.zIndex = 1;
-    this.update.style.zIndex = 2;
+    Position.clone(this.update, this.iefix, {setTop:(!this.update.getStyle("height"))});
+    $(this.iefix).setStyle({zIndex : 1});
+    this.update.setStyle({zIndex:2});
     Element.show(this.iefix);
   },
 
@@ -150,15 +150,15 @@ Autocompleter.Base = Class.create({
          Event.stop(event);
          return;
       }
-     else
-       if(event.keyCode==Event.KEY_TAB || event.keyCode==Event.KEY_RETURN ||
+     else 
+       if(event.keyCode==Event.KEY_TAB || event.keyCode==Event.KEY_RETURN || 
          (Prototype.Browser.WebKit > 0 && event.keyCode == 0)) return;
 
     this.changed = true;
     this.hasFocus = true;
 
     if(this.observer) clearTimeout(this.observer);
-      this.observer =
+      this.observer = 
         setTimeout(this.onObserverEvent.bind(this), this.options.frequency*1000);
   },
 
@@ -170,35 +170,35 @@ Autocompleter.Base = Class.create({
 
   onHover: function(event) {
     var element = Event.findElement(event, 'LI');
-    if(this.index != element.autocompleteIndex)
+    if(this.index != element.autocompleteIndex) 
     {
         this.index = element.autocompleteIndex;
         this.render();
     }
     Event.stop(event);
   },
-
+  
   onClick: function(event) {
     var element = Event.findElement(event, 'LI');
     this.index = element.autocompleteIndex;
     this.selectEntry();
     this.hide();
   },
-
+  
   onBlur: function(event) {
     // needed to make click events working
     setTimeout(this.hide.bind(this), 250);
     this.hasFocus = false;
-    this.active = false;
-  },
-
+    this.active = false;     
+  }, 
+  
   render: function() {
     if(this.entryCount > 0) {
       for (var i = 0; i < this.entryCount; i++)
-        this.index==i ?
-          Element.addClassName(this.getEntry(i),"selected") :
+        this.index==i ? 
+          Element.addClassName(this.getEntry(i),"selected") : 
           Element.removeClassName(this.getEntry(i),"selected");
-      if(this.hasFocus) {
+      if(this.hasFocus) { 
         this.show();
         this.active = true;
       }
@@ -207,27 +207,27 @@ Autocompleter.Base = Class.create({
       this.hide();
     }
   },
-
+  
   markPrevious: function() {
     if(this.index > 0) this.index--;
       else this.index = this.entryCount-1;
     this.getEntry(this.index).scrollIntoView(true);
   },
-
+  
   markNext: function() {
     if(this.index < this.entryCount-1) this.index++;
       else this.index = 0;
     this.getEntry(this.index).scrollIntoView(false);
   },
-
+  
   getEntry: function(index) {
     return this.update.firstChild.childNodes[index];
   },
-
+  
   getCurrentEntry: function() {
     return this.getEntry(this.index);
   },
-
+  
   selectEntry: function() {
     this.active = false;
     this.updateElement(this.getCurrentEntry());
@@ -244,7 +244,7 @@ Autocompleter.Base = Class.create({
       if(nodes.length>0) value = Element.collectTextNodes(nodes[0], this.options.select);
     } else
       value = Element.collectTextNodesIgnoreClass(selectedElement, 'informal');
-
+    
     var bounds = this.getTokenBounds();
     if (bounds[0] != -1) {
       var newValue = this.element.value.substr(0, bounds[0]);
@@ -257,7 +257,7 @@ Autocompleter.Base = Class.create({
     }
     this.oldElementValue = this.element.value;
     this.element.focus();
-
+    
     if (this.options.afterUpdateElement)
       this.options.afterUpdateElement(this.element, selectedElement);
   },
@@ -269,20 +269,20 @@ Autocompleter.Base = Class.create({
       Element.cleanWhitespace(this.update.down());
 
       if(this.update.firstChild && this.update.down().childNodes) {
-        this.entryCount =
+        this.entryCount = 
           this.update.down().childNodes.length;
         for (var i = 0; i < this.entryCount; i++) {
           var entry = this.getEntry(i);
           entry.autocompleteIndex = i;
           this.addObservers(entry);
         }
-      } else {
+      } else { 
         this.entryCount = 0;
       }
 
       this.stopIndicator();
       this.index = 0;
-
+      
       if(this.entryCount==1 && this.options.autoSelect) {
         this.selectEntry();
         this.hide();
@@ -298,7 +298,7 @@ Autocompleter.Base = Class.create({
   },
 
   onObserverEvent: function() {
-    this.changed = false;
+    this.changed = false;   
     this.tokenBounds = null;
     if(this.getToken().length>=this.options.minChars) {
       this.getUpdatedChoices();
@@ -351,16 +351,16 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 
   getUpdatedChoices: function() {
     this.startIndicator();
-
-    var entry = encodeURIComponent(this.options.paramName) + '=' +
+    
+    var entry = encodeURIComponent(this.options.paramName) + '=' + 
       encodeURIComponent(this.getToken());
 
     this.options.parameters = this.options.callback ?
       this.options.callback(this.element, entry) : entry;
 
-    if(this.options.defaultParams)
+    if(this.options.defaultParams) 
       this.options.parameters += '&' + this.options.defaultParams;
-
+    
     new Ajax.Request(this.url, this.options);
   },
 
@@ -382,7 +382,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 // - choices - How many autocompletion choices to offer
 //
 // - partialSearch - If false, the autocompleter will match entered
-//                    text only at the beginning of strings in the
+//                    text only at the beginning of strings in the 
 //                    autocomplete array. Defaults to true, which will
 //                    match text at the beginning of any *word* in the
 //                    strings in the autocomplete array. If you want to
@@ -399,11 +399,13 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 // - ignoreCase - Whether to ignore case when autocompleting.
 //                 Defaults to true.
 //
-// It's possible to pass in a custom function as the 'selector'
+// It's possible to pass in a custom function as the 'selector' 
 // option, if you prefer to write your own autocompletion logic.
 // In that case, the other options above will not apply unless
 // you support them.
 
+
+/*
 Autocompleter.Local = Class.create(Autocompleter.Base, {
   initialize: function(element, update, array, options) {
     this.baseInitialize(element, update, options);
@@ -427,20 +429,20 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
         var entry     = instance.getToken();
         var count     = 0;
 
-        for (var i = 0; i < instance.options.array.length &&
-          ret.length < instance.options.choices ; i++) {
+        for (var i = 0; i < instance.options.array.length &&  
+          ret.length < instance.options.choices ; i++) { 
 
           var elem = instance.options.array[i];
-          var foundPos = instance.options.ignoreCase ?
-            elem.toLowerCase().indexOf(entry.toLowerCase()) :
+          var foundPos = instance.options.ignoreCase ? 
+            elem.toLowerCase().indexOf(entry.toLowerCase()) : 
             elem.indexOf(entry);
 
           while (foundPos != -1) {
-            if (foundPos == 0 && elem.length != entry.length) {
-              ret.push("<li><strong>" + elem.substr(0, entry.length) + "</strong>" +
+            if (foundPos == 0 && elem.length != entry.length) { 
+              ret.push("<li><strong>" + elem.substr(0, entry.length) + "</strong>" + 
                 elem.substr(entry.length) + "</li>");
               break;
-            } else if (entry.length >= instance.options.partialChars &&
+            } else if (entry.length >= instance.options.partialChars && 
               instance.options.partialSearch && foundPos != -1) {
               if (instance.options.fullSearch || /\s/.test(elem.substr(foundPos-1,1))) {
                 partial.push("<li>" + elem.substr(0, foundPos) + "<strong>" +
@@ -450,8 +452,8 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
               }
             }
 
-            foundPos = instance.options.ignoreCase ?
-              elem.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) :
+            foundPos = instance.options.ignoreCase ? 
+              elem.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) : 
               elem.indexOf(entry, foundPos + 1);
 
           }
@@ -463,6 +465,342 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
     }, options || { });
   }
 });
+*/
+
+//Advanced Local
+
+Autocompleter.Local = Class.create(Autocompleter.Base, {
+    initialize: function(element, update, array, options){
+        this.baseInitialize(element, update, options);
+        this.options.array = array;
+        this.wrapper = $(this.element.parentNode);
+        
+        if (!this.element.hacks) {
+            this.element.should_use_borderless_hack = Prototype.Browser.WebKit;
+            this.element.should_use_shadow_hack = Prototype.Browser.IE || Prototype.Browser.Opera;
+            this.element.hacks = true;
+        }
+        if (this.element.should_use_borderless_hack || this.element.should_use_shadow_hack) {
+            this.wrapper.addClassName('tokenizer_input_borderless');
+        }
+        
+        this.options.onShow = function(element, update){
+            Position.clone(element.parentNode.parentNode, update, {
+                setHeight: false,
+                setWidth: false,
+                offsetTop: element.parentNode.parentNode.offsetHeight
+            });
+            update.show();
+            
+        }
+        this.options.onHide = function(element, update){
+            update.hide()
+        };
+        
+        
+    },
+    getUpdatedChoices: function(){
+        this.updateChoices(this.options.selector(this));
+        
+    },
+    
+    onBlur: function($super, event){
+        $super();
+        //move itself back to the end on blur
+        if (this.wrapper.nextSiblings().length > 0) {
+            this.wrapper.nextSiblings().last().insert({
+                after: this.wrapper
+            });
+            
+        }
+        
+    },
+    set_input_size: function(size){
+        size = size || 20;
+        this.element.setStyle({
+            width: size + "px"
+        });
+    },
+    onKeyPress: function(event){
+        //dynamically resize the input field
+        var new_size = 20 + (this.element.value.length * 7);
+        if (new_size <= 340) {
+            this.set_input_size(new_size);
+        }
+        else {
+            this.set_input_size(340);
+        }
+        //active is when there's suggesitons found
+        if (this.active) 
+            switch (event.keyCode) {
+                case Event.KEY_TAB:
+                case Event.KEY_RETURN:
+                    this.selectEntry();
+                    Event.stop(event);
+                case Event.KEY_ESC:
+                    this.hide();
+                    this.active = false;
+                    Event.stop(event);
+                    return;case Event.KEY_LEFT:
+                case Event.KEY_RIGHT:
+                    return;case Event.KEY_UP:
+                    this.markPrevious();
+                    this.render();
+                    Event.stop(event);
+                    return;case Event.KEY_DOWN:
+                    this.markNext();
+                    this.render();
+                    Event.stop(event);
+                    return;            }
+        else {
+            if (event.keyCode == Event.KEY_TAB || event.keyCode == Event.KEY_RETURN ||
+            (Prototype.Browser.WebKit > 0 && event.keyCode == 0) ||
+            event.keyCode == 44 /* , comma */ ||
+            event.keyCode == 188) {
+                var email_addr = this.element.value.strip().sub(',', '')
+                //recognise email format
+                if (validate_email(email_addr)) {
+                    addEmailToList(email_addr);
+                    Event.stop(event);
+                }
+                this.element.value = "";
+                this.set_input_size();
+                return false;
+                
+            }
+            switch (event.keyCode) {
+                //jump left to token
+                case Event.KEY_LEFT:
+                case Event.KEY_BACKSPACE:
+                    if (this.element.value == "" && typeof this.wrapper.previous().token != "undefined") {
+                        this.wrapper.previous().token.select();
+                        
+                    }
+                    return;                //jump right to token
+                case Event.KEY_RIGHT:
+                    if (this.element.value == "" && this.wrapper.next() && typeof this.wrapper.next().token != "undefined") {
+                        this.wrapper.next().token.select();
+                        
+                    }
+                    
+            }
+            
+        }
+        
+        this.changed = true;
+        this.hasFocus = true;
+        
+        if (this.observer) 
+            clearTimeout(this.observer);
+        this.observer = setTimeout(this.onObserverEvent.bind(this), this.options.frequency * 1000);
+        
+    },
+    
+    setOptions: function(options){
+        this.options = Object.extend({
+            choices: 10,
+            partialSearch: true,
+            partialChars: 2,
+            ignoreCase: true,
+            fullSearch: false,
+            selector: function(instance){
+                var ret = [];
+                // Beginning matches
+                var partial = [];
+                // Inside matches
+                var entry = instance.getToken();
+                var count = 0;
+                
+                for (var i = 0; i < instance.options.array.length &&
+                ret.length < instance.options.choices; i++) {
+                
+                    var elem = instance.options.array[i];
+                    var elem_name = elem[instance.options.search_field];
+                    var foundPos = instance.options.ignoreCase ? elem_name.toLowerCase().indexOf(entry.toLowerCase()) : elem_name.indexOf(entry);
+                    
+                    while (foundPos != -1) {
+                    
+                        if (foundPos == 0 && elem_name.length != entry.length) {
+                            var value = "<strong>" + elem_name.substr(0, entry.length) + "</strong>" + elem_name.substr(entry.length);
+                            ret.push("<li value='" + i + "'>" + "<div>" + value + "</div>" +
+                            "<div>" +
+                            elem.email +
+                            "</div>" +
+                            "</li>");
+                            break;
+                            
+                        }
+                        else 
+                            if (entry.length >= instance.options.partialChars && instance.options.partialSearch && foundPos != -1) {
+                                if (instance.options.fullSearch || /\s/.test(elem_name.substr(foundPos - 1, 1))) {
+                                    var value = elem_name.substr(0, foundPos) + "<strong>" +
+                                    elem_name.substr(foundPos, entry.length) +
+                                    "</strong>" +
+                                    elem_name.substr(foundPos + entry.length)
+                                    
+                                    partial.push("<li value='" + i + "'>" + "<div>" + value + "</div>" +
+                                    "<div>" +
+                                    elem.email +
+                                    "</div>" +
+                                    "</li>");
+                                    break;
+                                    
+                                }
+                                
+                            }
+                        foundPos = instance.options.ignoreCase ? elem_name.toLowerCase().indexOf(entry.toLowerCase(), foundPos + 1) : elem_name.indexOf(entry, foundPos + 1);
+                        
+                        
+                    }
+                    
+                }
+                if (partial.length) 
+                    ret = ret.concat(partial.slice(0, instance.options.choices - ret.length));
+                return "<ul>" + ret.join('') + "</ul>";
+                
+            }
+            
+        }, options ||
+        {});
+        
+    }
+    
+});
+
+HiddenInput = Class.create({
+    initialize: function(element, auto_complete){
+        this.element = $(element);
+        this.auto_complete = auto_complete;
+        this.token;
+        Event.observe(this.element, 'keydown', this.onKeyPress.bindAsEventListener(this));
+        
+    },
+    onKeyPress: function(event){
+        if (this.token.selected) {
+            switch (event.keyCode) {
+                case Event.KEY_LEFT:
+                    this.token.element.insert({
+                        before: this.auto_complete.wrapper
+                    })
+                    this.token.deselect();
+                    this.auto_complete.element.focus();
+                    return false;
+                case Event.KEY_RIGHT:
+                    this.token.element.insert({
+                        after: this.auto_complete.wrapper
+                    })
+                    this.token.deselect();
+                    this.auto_complete.element.focus();
+                    return false;
+                case Event.KEY_BACKSPACE:
+                case Event.KEY_DELETE:
+                    this.token.element.remove();
+                    this.auto_complete.element.focus();
+                    return false;
+                    
+            }
+            
+        }
+        
+    }
+    
+    
+})
+Token = Class.create({
+    initialize: function(element, hidden_input){
+        this.element = $(element);
+        this.hidden_input = hidden_input;
+        this.element.token = this;
+        this.selected = false;
+        Event.observe(document, 'click', this.onclick.bindAsEventListener(this));
+        
+    },
+    select: function(){
+        this.hidden_input.token = this;
+        this.hidden_input.element.activate();
+        this.selected = true;
+        this.element.addClassName('token_selected');
+        
+    },
+    deselect: function(){
+        this.hidden_input.token = undefined;
+        this.selected = false;
+        this.element.removeClassName('token_selected')
+        
+    },
+    onclick: function(event){
+        if (this.detect(event) && !this.selected) {
+            this.select();
+            
+        }
+        else {
+            this.deselect();
+            
+        }
+        
+    },
+    detect: function(e){
+        //find the event object
+        var eventTarget = e.target ? e.target : e.srcElement;
+        var token = eventTarget.token;
+        var candidate = eventTarget;
+        while (token == null && candidate.parentNode) {
+            candidate = candidate.parentNode;
+            token = candidate.token;
+            
+        }
+        return token != null && token.element == this.element;
+        
+    }
+    
+});
+
+
+addContactToList = function(item){
+    $('autocomplete_input').value = "";
+    var token = Builder.node('a', {
+        "class": 'token',
+        href: "#",
+        tabindex: "-1"
+    }, Builder.node('span', Builder.node('span', Builder.node('span', Builder.node('span', {}, [Builder.node('input', {
+        type: "hidden",
+        name: "message[to][]",
+        value: item.lastChild.innerHTML
+    }), contacts[Element.readAttribute(item, 'value')].name, Builder.node('span', {
+        "class": 'x',
+        onmouseout: "this.className='x'",
+        onmouseover: "this.className='x_hover'",
+        onclick: "this.parentNode.parentNode.parentNode.parentNode.parentNode.remove(true); return false;"
+    }, " ")])))));
+    $(token).down(4).next().innerHTML = "&nbsp;";
+    new Token(token, hidden_input);
+    $('autocomplete_display').insert({
+        before: token
+    });
+}
+addEmailToList = function(email){
+    /*   $('autocomplete_input').value = "";*/
+    var token = Builder.node('a', {
+        "class": 'token',
+        href: "#",
+        tabindex: "-1"
+    }, Builder.node('span', Builder.node('span', Builder.node('span', Builder.node('span', {}, [Builder.node('input', {
+        type: "hidden",
+        name: "emails[]",
+        value: email
+    }), email, Builder.node('span', {
+        "class": 'x',
+        onmouseout: "this.className='x'",
+        onmouseover: "this.className='x_hover'",
+        onclick: "this.parentNode.parentNode.parentNode.parentNode.parentNode.remove(true); return false;"
+    }, " ")])))));
+    $(token).down(4).next().innerHTML = "&nbsp;";
+    new Token(token, hidden_input);
+    $('autocomplete_display').insert({
+        before: token
+    });
+}
+
 
 // AJAX in-place editor and collection editor
 // Full rewrite by Christophe Porteneuve <tdd@tddsworld.com> (April 2007).
@@ -604,7 +942,7 @@ Ajax.InPlaceEditor = Class.create({
     this.triggerCallback('onEnterHover');
   },
   getText: function() {
-    return this.element.innerHTML.unescapeHTML();
+    return this.element.innerHTML;
   },
   handleAJAXFailure: function(transport) {
     this.triggerCallback('onFailure', transport);
@@ -648,7 +986,7 @@ Ajax.InPlaceEditor = Class.create({
     this.element.removeClassName(this.options.savingClassName);
     this.removeForm();
     this.leaveHover();
-    this.element.style.backgroundColor = this._originalBackground;
+    this.element.setStyle({backgroundColor : this._originalBackground});
     this.element.show();
     if (this.options.externalControl)
       this.options.externalControl.show();
@@ -723,7 +1061,7 @@ Ajax.InPlaceEditor = Class.create({
     this._oldInnerHTML = this.element.innerHTML;
     this.element.innerHTML = this.options.savingText;
     this.element.addClassName(this.options.savingClassName);
-    this.element.style.backgroundColor = this._originalBackground;
+    this.element.setStyle({backgroundColor: this._originalBackground});
     this.element.show();
   },
   triggerCallback: function(cbName, arg) {
@@ -909,7 +1247,7 @@ Object.extend(Ajax.InPlaceEditor, {
     },
     onEnterEditMode: null,
     onEnterHover: function(ipe) {
-      ipe.element.style.backgroundColor = ipe.options.highlightColor;
+      $(ipe.element).setStyle({backgroundColor : ipe.options.highlightColor});
       if (ipe._effect)
         ipe._effect.cancel();
     },
@@ -937,7 +1275,7 @@ Ajax.InPlaceCollectionEditor.DefaultOptions = {
   loadingCollectionText: 'Loading options...'
 };
 
-// Delayed observer, like Form.Element.Observer,
+// Delayed observer, like Form.Element.Observer, 
 // but waits for delay after last key input
 // Ideal for live-search fields
 
@@ -947,7 +1285,7 @@ Form.Element.DelayedObserver = Class.create({
     this.element   = $(element);
     this.callback  = callback;
     this.timer     = null;
-    this.lastValue = $F(this.element);
+    this.lastValue = $F(this.element); 
     Event.observe(this.element,'keyup',this.delayedListener.bindAsEventListener(this));
   },
   delayedListener: function(event) {

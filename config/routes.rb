@@ -1,22 +1,26 @@
 ActionController::Routing::Routes.draw do |map|
+  
   map.resources :posts
 
   
+  map.resources :recipients
+  
   # Home route leads to inbox
   map.inbox 'inbox', :controller => "mailbox", :action => "index"
+  map.trash 'trash', :controller => "mailbox", :action => "trash"
+  
+  
+  map.resources :users, :sent
+  #map.resources :mailbox, :collection => { :trash => :get }
+  map.resources :messages, :member => { :reply => :get, :forward => :get, :reply_all => :get, :undelete => :put }
   
   map.login "login", :controller => "user_sessions", :action => "new"
   map.logout "logout", :controller => "user_sessions", :action => "destroy"
   
   map.resources :user_sessions
 
-  map.resources :users, :sent, :messages, :mailbox
   
-
   map.resources :pages
-  
-  map.resources :mugshots
-  
   
   map.root :controller => "posts"
   

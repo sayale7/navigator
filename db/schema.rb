@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090616155116) do
+ActiveRecord::Schema.define(:version => 20090705221056) do
 
   create_table "folders", :force => true do |t|
     t.integer  "user_id"
@@ -23,8 +23,10 @@ ActiveRecord::Schema.define(:version => 20090616155116) do
     t.integer  "recipient_id"
     t.integer  "message_id"
     t.integer  "folder_id"
+    t.boolean  "deleted",      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "read",         :default => false, :null => false
   end
 
   create_table "messages", :force => true do |t|
@@ -33,16 +35,6 @@ ActiveRecord::Schema.define(:version => 20090616155116) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "mugshots", :force => true do |t|
-    t.integer "parent_id"
-    t.string  "content_type"
-    t.string  "filename"
-    t.string  "thumbnail"
-    t.integer "size"
-    t.integer "width"
-    t.integer "height"
   end
 
   create_table "pages", :force => true do |t|
@@ -56,6 +48,13 @@ ActiveRecord::Schema.define(:version => 20090616155116) do
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "recipients", :force => true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
