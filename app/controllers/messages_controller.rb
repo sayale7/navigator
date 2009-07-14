@@ -24,7 +24,9 @@ class MessagesController < ApplicationController
   def html_destroy
     @message = MessageCopy.find(params[:id])
     @message.update_attribute("deleted", true)
-    @message.update_attribute("folder_id", 2)
+    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Trash'"])
+    @folder = Folder.find(@folders[0].id)
+    @message.update_attribute("folder_id", @folder.id)
     @folder = current_user.trash
     @messages = @folder.messages.all(:conditions => ["deleted = true"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
     @folder = current_user.inbox
@@ -40,7 +42,9 @@ class MessagesController < ApplicationController
   def html_undelete
     @message = MessageCopy.find(params[:id])
     @message.update_attribute("deleted", false)
-    @message.update_attribute("folder_id", 1)
+    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Inbox'"])
+    @folder = Folder.find(@folders[0].id)
+    @message.update_attribute("folder_id", @folder.id)
     @folder = current_user.inbox
     @messages = @folder.messages.all(:conditions => ["deleted = false"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
     @folder = current_user.trash
@@ -56,9 +60,11 @@ class MessagesController < ApplicationController
   def destroy
     @message = current_user.received_messages.find(params[:id])
     @message.update_attribute("deleted", true)
-    @message.update_attribute("folder_id", 2)
-    @folder = Folder.find(1)
-     @messages = @folder.messages.all(:conditions => ["deleted = false and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
+    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Trash'"])
+    @folder = Folder.find(@folders[0].id)
+    @message.update_attribute("folder_id", @folder.id)
+    @folder = Folder.find(@folder.id)
+    @messages = @folder.messages.all(:conditions => ["deleted = false and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
     
     render :update do |page|
       page.replace_html 'inbox', :partial => 'layouts/inbox_list'
@@ -69,8 +75,10 @@ class MessagesController < ApplicationController
   def undelete
     @message = current_user.received_messages.find(params[:id])
     @message.update_attribute("deleted", false)
-    @message.update_attribute("folder_id", 1)
-    @folder = Folder.find(2)
+    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Inbox'"])
+    @folder = Folder.find(@folders[0].id)
+    @message.update_attribute("folder_id", @folder.id)
+    @folder = Folder.find(@folder.id)
     @messages = @folder.messages.all(:conditions => ["deleted = true and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
     
     

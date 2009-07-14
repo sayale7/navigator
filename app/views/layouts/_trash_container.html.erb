@@ -1,4 +1,6 @@
-<% if (@message = MessageCopy.all(:conditions => "recipient_id = #{current_user.id} and folder_id = 2").size) > 0 %>
+<% @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Trash'"])
+    @folder = Folder.find(@folders[0].id)%>
+<% if (@message = MessageCopy.all(:conditions => "recipient_id = #{current_user.id} and folder_id = #{@folder.id}").size) > 0 %>
 <li>
     <%= link_to image_tag("trash_filled.jpg", :border=>0), trash_path %>
 </li>

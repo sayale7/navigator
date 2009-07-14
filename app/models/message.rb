@@ -12,14 +12,16 @@ class Message < ActiveRecord::Base
   attr_accessor  :to # array of people to send to
   attr_accessible :subject, :body, :to
   
- 
+  
   
   def prepare_copies
     @emails = to.uniq
     @emails.each do |touser|
       @users = User.all(:conditions => ["email = '#{touser}'"])
       @users.each do |user|
-        message_copies.build(:recipient_id => user.id, :folder_id => 1)
+        @folders = Folder.all(:conditions => ["user_id = #{user.id} and name = 'Inbox'"])
+        @folder = Folder.find(@folders[0].id)
+        message_copies.build(:recipient_id => user.id, :folder_id => @folder.id)
       end
     end
   end

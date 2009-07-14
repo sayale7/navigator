@@ -9,6 +9,7 @@ class MailboxController < ApplicationController
     @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Inbox'"])
     @folder = Folder.find(@folders[0].id)
     @messages = @folder.messages.all(:conditions => ["deleted = false and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
+    @johann = "johann"
     render :action => "show"
   end
   
