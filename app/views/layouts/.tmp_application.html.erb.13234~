@@ -23,8 +23,7 @@
                 <div id="user_nav">
                     <% if current_user %>
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
-					<% end%>
-                    <% if current_user && (current_user.has_role? :admin) %>
+                    <% if current_user.has_role? :admin %>
                     |<%= link_to " Neuen Benutzer anlegen", new_user_path %>
                     <% end %>
                     <% else %>
