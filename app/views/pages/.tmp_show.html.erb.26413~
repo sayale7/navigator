@@ -1,5 +1,11 @@
 <% title @page.name, false %>
 
+<p>
+<% for page in @page.ancestors.reverse %>
+  <%= link_to h(page.name), page %> &gt;
+<% end %>
+</p>
+
 <%= simple_format @page.content %>
 <br/>
 <% if current_user.has_role? :admin %>

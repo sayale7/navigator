@@ -25,7 +25,7 @@ body {
     background-color: white;
     float: left;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 0px;
     margin: 5px 0px 30px;
     border-top: medium solid silver;
 }
@@ -127,6 +127,7 @@ label {
 /*---MAIN COLUMN---*/ #content-wrapper {
     float: left;
     width: 730px;
+	padding-top:10px;
 } #content {
     padding: 0px 15px;
 } #editorcontent {
@@ -341,11 +342,10 @@ label {
     margin-right: 20px;
     overflow: hidden;
 }#submenu ul {
-	overflow:hidden;
+    overflow: hidden;
 } #submenu li {
-	
 } #submenu li a {
-	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
     font-size: 13px;
     display: block;
     float: left;
@@ -354,9 +354,9 @@ label {
     padding: 8px 16px 7px;
     margin: 1px 1px 1px 1px;
     border-bottom: none;
-	width: 130px;
+    width: 130px;
 } #submenu li a:hover {
-	color: #FFFFFF;
+    color: #FFFFFF;
     background: #49140c;
 }#user_nav {
     border: solid thin silver;
@@ -370,7 +370,16 @@ label {
     margin: 0 10px 0 10px;
 } #user_nav a:hover {
     color: gray;
-} #mailbox_list {
+} #page_title {
+    clear: both;
+	border-bottom:solid medium silver;
+	text-align:center;
+} #ancestors {
+    padding: 3px;
+    clear: both;
+} #ancestors a {
+    font-size:13px;
+}#mailbox_list {
     float: left;
     list-style: none;
     text-align: center;
