@@ -59,4 +59,19 @@ class PagesController < ApplicationController
     end
   end
   
+  def set_inactive
+    debugger
+    @page = Page.find(params[:id])
+    @page.update_attribute("inactive", true)
+    @page.save
+    @johann = ""
+    render :action => "show"
+  end
+
+  def set_active
+    @page = Page.find(params[:id])
+    @page.update_attribute("inactive", false)
+    @page.save
+    render :action => "show"
+  end
 end
