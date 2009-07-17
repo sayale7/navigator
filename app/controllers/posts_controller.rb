@@ -45,6 +45,8 @@ class PostsController < ApplicationController
     @post = Post.new(params[:post])
     @post.body = @post.body.to_s.gsub("\r", "")
     @post.body = @post.body.to_s.gsub("\n", "")
+      debugger
+      @asdf = ""
     respond_to do |format|
       if @post.save
         flash[:notice] = 'Post was successfully created.'
@@ -65,7 +67,6 @@ class PostsController < ApplicationController
       @post.update_attributes(params[:post])
       @post.body = @post.body.to_s.gsub("\r", "")
       @post.body = @post.body.to_s.gsub("\n", "")
-      debugger
     if @post.save
         flash[:notice] = 'Post was successfully updated.'
         format.html { redirect_to root_url }
@@ -80,7 +81,6 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.xml
   def destroy
-    debugger
     @post = Post.find(params[:id])
     @post.destroy
     respond_to do |format|

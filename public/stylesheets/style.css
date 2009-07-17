@@ -185,6 +185,10 @@ label {
     border: medium none;
     margin: 0 4px -5px 2px;
     text-decoration: none;
+}.post{
+	clear:both;
+}.post ul{
+	padding-left:35px;
 }
 
 /*---STYLES---*/ #extra {

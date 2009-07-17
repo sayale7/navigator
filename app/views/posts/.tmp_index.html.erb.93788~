@@ -2,7 +2,7 @@
     <%= link_to 'New post', new_post_path %>
 </div>
 <% @posts.reverse.each do |post| %>
-<div class="post">
+<div class="clear">
     <h1><%=h post.title %>
     </h1>
     <p>
