@@ -1,0 +1,45 @@
+<div id="inbox">
+    <table>
+        <tr>
+            <th>
+                An
+            </th>
+            <th>
+                Betreff
+            </th>
+            <th>
+                Gesendet am
+            </th>
+        </tr>
+        <% for message in @messages %>
+        <tr>
+            <td>
+                <% Recipient.find_all_by_message_id(message.id).each do |recipient| %>
+				<% users = User.find_all_by_id(recipient.user_id)%>
+                <% if !users.empty? %>
+                <%= User.find(recipient.user_id).username %>
+                <br/>
+                <% else %>
+                <p>
+                    gelöscht
+                </p>
+                <% end %>
+                <% end %>
+            </td>
+            <td>
+                <%= link_to h(message.subject), sent_path(message) %>
+            </td>
+            <td>
+                <%= message.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
+            </td>
+        </tr>
+        <% end %>
+    </table>
+    <%= will_paginate @messages %>
+</div>
+<div id="mailbox_list">
+    <%= render :partial => "layouts/mailbox_container" %>
+</div>
+<div id="mailbox_trash">
+    <%= render :partial => "layouts/trash_container" %>
+</div>
