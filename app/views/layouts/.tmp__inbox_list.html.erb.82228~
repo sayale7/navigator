@@ -38,7 +38,7 @@
             <%= link_to h(message.subject), :controller => "messages", :action => "read", :id => message.id %>
         </td>
         <td>
-            <%= message.updated_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
+            <%= message.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
         </td>
         <% unless message.deleted %>
         <td>

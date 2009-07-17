@@ -15,9 +15,6 @@
     </tr>
     <% @messages.reverse.each do |message| %>
     <tr class="inbox_messages" id="<%= message.id %>">
-        <td>
-            <%=h message.author.username %>
-        </td>
         <% if message.author != nil %>
         <td>
             <%= message.author.username %>
@@ -30,7 +27,10 @@
         </td>
         <% end %>
         <td>
-            <%= message.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
+            <%= link_to h(message.subject), :controller => "messages", :action => "read", :id => message.id %>
+        </td>
+        <td>
+            <%= message.updated_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
         </td>
         <% unless message.deleted %>
         <td>
