@@ -333,7 +333,7 @@ label {
     border-bottom: 1px solid #0b0b0a;
 } #submenu {
     list-style: none;
-    text-align: center;
+    text-align: left;
     width: 140px;
     padding: 5px 4px;
     margin: 0px 0;
@@ -343,6 +343,7 @@ label {
 }#submenu ul {
 	overflow:hidden;
 } #submenu li {
+	
 } #submenu li a {
 	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -353,6 +354,7 @@ label {
     padding: 8px 16px 7px;
     margin: 1px 1px 1px 1px;
     border-bottom: none;
+	width: 130px;
 } #submenu li a:hover {
 	color: #FFFFFF;
     background: #49140c;
