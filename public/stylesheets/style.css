@@ -378,6 +378,7 @@ label {
     padding: 3px;
     clear: both;
 } #ancestors a {
+	color: #0d523a;
     font-size:13px;
 }#mailbox_list {
     float: left;

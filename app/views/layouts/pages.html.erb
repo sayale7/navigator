@@ -40,9 +40,11 @@
                         <%= link_to h(page.name), page %>
                     </li>
                     <% end %>
+                    <% if current_user.has_role? :admin %>
                     <li>
                         <%= link_to "New Page", new_page_path %>
                     </li>
+                    <% end %>
                 </ul>
             </div>
             <div id="ancestors">
