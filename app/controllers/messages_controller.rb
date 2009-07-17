@@ -4,15 +4,6 @@ class MessagesController < ApplicationController
     @message = current_user.received_messages.find(params[:id])
   end
   
-  def reply
-    @original = current_user.received_messages.find(params[:id])
-    
-    subject = @original.subject.sub(/^(Re: )?/, "Re: ")
-    body = @original.body.gsub(/^/, "> ")
-    @message = current_user.sent_messages.build(:to => [@original.author.id], :subject => subject, :body => body)
-    get_users
-    render :template => "sent/new"
-  end
   
   def read
     @message = MessageCopy.find(params[:id])
@@ -22,16 +13,7 @@ class MessagesController < ApplicationController
   end
   
   def html_destroy
-    @message = MessageCopy.find(params[:id])
-    @message.update_attribute("deleted", true)
-    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Trash'"])
-    @folder = Folder.find(@folders[0].id)
-    @message.update_attribute("folder_id", @folder.id)
-    @folder = current_user.trash
-    @messages = @folder.messages.all(:conditions => ["deleted = true"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    @folder = current_user.inbox
-    @messages = @folder.messages.all(:conditions => ["deleted = false"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    
+    destroy_message
     respond_to do |format|
       format.html { redirect_to(inbox_url) }
       format.xml  { head :ok }
@@ -40,16 +22,7 @@ class MessagesController < ApplicationController
   end
   
   def html_undelete
-    @message = MessageCopy.find(params[:id])
-    @message.update_attribute("deleted", false)
-    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Inbox'"])
-    @folder = Folder.find(@folders[0].id)
-    @message.update_attribute("folder_id", @folder.id)
-    @folder = current_user.inbox
-    @messages = @folder.messages.all(:conditions => ["deleted = false"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    @folder = current_user.trash
-    @messages = @folder.messages.all(:conditions => ["deleted = true"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    
+    recover_message
     respond_to do |format|
       format.html { redirect_to(trash_url) }
       format.xml  { head :ok }
@@ -58,14 +31,7 @@ class MessagesController < ApplicationController
   end
   
   def destroy
-    @message = current_user.received_messages.find(params[:id])
-    @message.update_attribute("deleted", true)
-    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Trash'"])
-    @folder = Folder.find(@folders[0].id)
-    @message.update_attribute("folder_id", @folder.id)
-    @folder = Folder.find(@folder.id)
-    @messages = @folder.messages.all(:conditions => ["deleted = false and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    
+    destroy_message
     render :update do |page|
       page.replace_html 'inbox', :partial => 'layouts/inbox_list'
       page.replace_html 'mailbox_trash', :partial => 'layouts/trash_container'
@@ -73,15 +39,7 @@ class MessagesController < ApplicationController
   end
   
   def undelete
-    @message = current_user.received_messages.find(params[:id])
-    @message.update_attribute("deleted", false)
-    @folders = Folder.all(:conditions => ["user_id = #{current_user.id} and name = 'Inbox'"])
-    @folder = Folder.find(@folders[0].id)
-    @message.update_attribute("folder_id", @folder.id)
-    @folder = Folder.find(@folder.id)
-    @messages = @folder.messages.all(:conditions => ["deleted = true and recipient_id = #{current_user.id}"]).paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
-    
-    
+    recover_message
     render :update do |page|
       page.replace_html 'inbox', :partial => 'layouts/trash_list'
     end
@@ -97,37 +55,34 @@ class MessagesController < ApplicationController
     end
   end
   
-  def forward
-    @original = current_user.received_messages.find(params[:id])
-    
-    subject = @original.subject.sub(/^(Fwd: )?/, "Fwd: ")
-    body = @original.body.gsub(/^/, "> ")
-    @message = current_user.sent_messages.build(:subject => subject, :body => body)
-    get_users
-    render :template => "sent/new"
-  end
   
-  def reply_all
-    @original = current_user.received_messages.find(params[:id])
-    
-    subject = @original.subject.sub(/^(Re: )?/, "Re: ")
-    body = @original.body.gsub(/^/, "> ")
-    recipients = @original.recipients.map(&:id) - [current_user.id] + [@original.author.id] 
-    @message = current_user.sent_messages.build(:to => recipients, :subject => subject, :body => body)
-    get_users
-    render :template => "sent/new"
-  end
   
   private
   
-  def get_users
-    @users = User.all()
-    @namesarray = Array.new
-    @idsarray = Array.new
-    for user in @users do
-      @namesarray.push(user.firstname + " " + user.lastname)
-      @idsarray.push(user.email)
-    end
+  def get_folder(folder)
+    @folder = Folder.find_by_user_id_and_name(current_user.id, folder);
   end
+  
+  def get_messages(folder)
+    @folder = Folder.find_by_user_id_and_name(current_user.id, folder);
+    @messages = @folder.messages.all.paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
+  end
+  
+  def recover_message
+    @message = current_user.received_messages.find(params[:id])
+    get_folder('Inbox')
+    @message.update_attributes(:deleted => false, :folder_id => @folder.id)
+    get_messages('Inbox')
+    get_messages('Trash')
+  end
+  
+  def destroy_message
+    @message = current_user.received_messages.find(params[:id])
+    get_folder('Trash')
+    @message.update_attributes(:deleted => true, :folder_id => @folder.id)
+    get_messages('Trash')
+    get_messages('Inbox')
+  end
+  
   
 end

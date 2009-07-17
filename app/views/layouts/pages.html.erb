@@ -48,9 +48,9 @@
             <div id="main">
                 <div id="content-wrapper">
                     <div id="content">
-                        <%- flash.each do |name, msg| -%>
+                        <% flash.each do |name, msg| %>
                         <%= content_tag :div, msg, :id => "flash_#{name}" %>
-                        <%- end -%>
+                        <% end %>
                         <div id="editorcontent">
                             <%= yield %>
                         </div>
@@ -62,7 +62,7 @@
                         <ul id="submenu">
                             <% for page in @page.children %>
                             <li>
-                                <%= link_to h(page.name), page %>
+                            	<%=  link_to page.name, page_path(page), :title => page.name %>
                             </li>
                             <% end %>
                         </ul>

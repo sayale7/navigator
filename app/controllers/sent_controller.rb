@@ -1,6 +1,5 @@
 class SentController < ApplicationController
   
-  
   def index
     @messages = current_user.sent_messages.paginate :per_page => 5, :page => params[:page], :order => "created_at DESC"
   end

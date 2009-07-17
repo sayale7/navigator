@@ -23,10 +23,9 @@
                 <div id="user_nav">
                     <% if current_user %>
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
-					<% if current_user.has_role? :admin %>
-					|
-					<%= link_to " Neuen Benutzer anlegen", new_user_path %>
-					<% end %>
+                    <% if current_user.has_role? :admin %>
+                    |<%= link_to " Neuen Benutzer anlegen", new_user_path %>
+                    <% end %>
                     <% else %>
                     <%= link_to " Login", login_path %>
                     <% end %>
@@ -34,45 +33,40 @@
             </div>
             <div id="nav">
                 <ul id="nav">
+                	<% if current_user %>
                     <li>
                         <%= link_to "Home", root_url %>
                     </li>
                     <li>
                         <%= link_to "Mail", inbox_path %>
                     </li>
-                    <% if current_user %>
                     <% for page in Page.roots %>
                     <li>
                         <%= link_to 	h(page.name), page %>
                     </li>
                     <% end %>
-					<% if current_user.has_role? :admin %>
+                    <% if current_user.has_role? :admin %>
                     <li>
                         <%= link_to "New Page", new_page_path %>
                     </li>
-					<% end %>
+                    <% end %>
                     <% end %>
                 </ul>
             </div>
             <div id="main">
                 <div id="content-wrapper">
                     <div id="content">
-                        <% if flash[:notice] %>
-                        <p style="color:green">
-                            <%= flash[:notice] %>
-                        </p>
-                        <% end %>
-                        <% if flash[:error] %>
-                        <p style="color:red">
-                            <%= flash[:error] %>
-                        </p>
-                        <% end %>
+                        <% flash.each do |name, msg| %>
+                        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+						<% end %>
                         <% if current_user %>
-						<%= yield %>
+                        <%= yield %>
                         <% end %>
                     </div>
                 </div>
                 <div id="sidebar-wrapper">
+                    <div id="sidebar">
+                    </div>
                 </div>
             </div>
             <div style="clear:both">
