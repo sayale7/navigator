@@ -32,7 +32,7 @@
             </div>
             <div id="nav">
                 <ul id="nav">
-                <ul id="nav">
+                     <ul id="nav">
                     <% if current_user %>
                     <li>
                         <%= link_to "Home", root_url %>
@@ -87,21 +87,10 @@
                     <% unless @page.children.empty? %>
                     <div id="sidebar">
                         <ul id="submenu">
-                            <% if current_user.has_role? :admin %>
                             <% for page in @page.children %>
                             <li>
                                 <%= link_to page.name, page_path(page), :title => page.name %>
                             </li>
-                            <% end %>
-                            <% else %>
-                            <% for page in @page.children %>
-                            <% if page.inactive %>
-                            <% else %>
-                            <li>
-                                <%= link_to page.name, page_path(page), :title => page.name %>
-                            </li>
-                            <% end %>
-                            <% end %>
                             <% end %>
                         </ul>
                     </div>
