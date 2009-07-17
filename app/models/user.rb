@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   
   has_many :sent_messages, :class_name => "Message", :foreign_key => "author_id"
   has_many :received_messages, :class_name => "MessageCopy", :foreign_key => "recipient_id"
-  has_many :folders
+  has_many :folders, :dependent => :destroy
+  has_many :recipients
   
   
   before_create :build_inbox

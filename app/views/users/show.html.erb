@@ -8,5 +8,5 @@
     <%=h @user.email %>
 </p>
 <p>
-    <%= link_to "Bearbeiten", edit_user_path(@user) %>|<%= link_to "Löschen", @user,  :method => :delete, :confirm => "Sind Sie sicher, dass sie den Benutzer #{@user.username} löschen wollen" %>|<%= link_to 'Weiter', root_url %>
+    <%= link_to "Bearbeiten", edit_user_path(@user) %>|<%= link_to 'Weiter', root_url %>
 </p>

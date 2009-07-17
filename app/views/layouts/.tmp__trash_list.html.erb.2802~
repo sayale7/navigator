@@ -18,17 +18,9 @@
         <td>
             <%=h message.author.username %>
         </td>
-        <% if message.author != nil %>
         <td>
-            <%= message.author.username %>
+            <%= link_to h(message.subject), message_path(message) %>
         </td>
-        <% else %>
-        <td>
-            <p>
-                gelöscht
-            </p>
-        </td>
-        <% end %>
         <td>
             <%= message.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
         </td>

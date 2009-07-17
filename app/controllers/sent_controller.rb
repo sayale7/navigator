@@ -31,7 +31,7 @@ class SentController < ApplicationController
     @namesarray = Array.new
     @idsarray = Array.new
     for user in @users do
-      @namesarray.push(user.username)
+      @namesarray.push(user.username+" ")
       @idsarray.push(user.email)
     end
   end

@@ -18,6 +18,7 @@ class MailboxController < ApplicationController
     debugger
     @folder = Folder.find_by_user_id_and_name(current_user.id, folder);
     @messages = @folder.messages.all.paginate :per_page => 5, :page => params[:page], :include => :message, :order => "messages.created_at DESC"
+    @johann = ""
   end
   
 end

@@ -9,7 +9,6 @@
     <tr>
       <td><%=h user.username %></td>
       <td><%=h user.email %></td>
-	  <td><%= link_to "Löschen", :controller => "users", :action => "destroy_user", :id => user.id %></td>
     </tr>
   <% end %>
 </table>

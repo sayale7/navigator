@@ -1,7 +1,6 @@
 <table>
     <tr>
-    	<th>
-            
+        <th>
         </th>
         <th>
             Von
@@ -15,18 +14,26 @@
     </tr>
     <% @messages.reverse.each do |message| %>
     <tr class="inbox_messages" id="<%= message.id %>">
-    	<% unless message.read %>
-    	<td>
-             <%= image_tag("email.jpg", :border=>0) %>
+        <% unless message.read %>
+        <td>
+            <%= image_tag("email.jpg", :border=>0) %>
         </td>
         <% else %>
         <td>
             <%= image_tag("openemail.jpg", :border=>0) %>
         </td>
-		<% end %>
-		<td>
-            <%= message.author.username  %>
+        <% end %>
+        <% if message.author != nil %>
+        <td>
+            <%= message.author.username %>
         </td>
+        <% else %>
+        <td>
+            <p>
+                gelöscht
+            </p>
+        </td>
+        <% end %>
         <td>
             <%= link_to h(message.subject), :controller => "messages", :action => "read", :id => message.id %>
         </td>
