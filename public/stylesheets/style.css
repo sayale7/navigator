@@ -319,8 +319,7 @@ label {
     font-size: 13px;
     display: block;
     float: left;
-    color: #ffffff;
-    background: #0d523a;
+    background: #ffdddd;
     text-decoration: none;
     padding: 8px 16px 7px;
     margin: 1px 1px 1px 1px;
@@ -342,11 +341,21 @@ label {
     margin-right: 20px;
     overflow: hidden;
 }#submenu ul {
+	overflow:hidden;
 } #submenu li {
-	padding: 2px;
-	border:solid thin silver;
 } #submenu li a {
+	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    float: left;
+    background: #ffdddd;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 1px;
+    border-bottom: none;
 } #submenu li a:hover {
+	color: #FFFFFF;
+    background: #49140c;
 }#user_nav {
     border: solid thin silver;
     margin: 10px;
