@@ -32,6 +32,7 @@
             </div>
             <div id="nav">
                 <ul id="nav">
+                     <ul id="nav">
                     <% if current_user %>
                     <li>
                         <%= link_to "Home", root_url %>
@@ -41,14 +42,14 @@
                     </li>
                     <% end %>
                     <% if current_user.has_role? :admin %>
-                    <% pages = Page.all %>
+                    <% pages = Page.roots %>
                     <% pages.each do |page| %>
                     <li>
                         <%= link_to h(page.name), page %>
                     </li>
                     <% end %>
                     <% else %>
-                    <% pages = Page.find_all_by_inactive(false) %>
+                    <% pages = Page.find_all_by_inactive_and_parent_id(false, nil) %>
                     <% pages.each do |page| %>
                     <li>
                         <%= link_to h(page.name), page %>
