@@ -25,16 +25,13 @@
             <div id="header">
                 <div id="user_nav">
                     <% if current_user %>
-                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
-                    <% if current_user.has_role? :admin %>
-                    |<%= link_to " Neuen Benutzer anlegen", new_user_path %> |<%= link_to " Benutzer löschen ", :controller => "users" %>
-                    <% end %>
-                    <% else %>
-                    <%= link_to " Login", login_path %>
+                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout", logout_path %>|<%= link_to "Neuen Benutzer anlegen", new_user_path %>|<%= link_to " Benutzer löschen ", :controller => "users" %><% else %>
+                    <%= link_to "Login", login_path %>
                     <% end %>
                 </div>
             </div>
             <div id="nav">
+                <ul id="nav">
                 <ul id="nav">
                     <% if current_user %>
                     <li>
@@ -68,17 +65,13 @@
             </div>
             <div id="ancestors">
                 <p>
-                    <% unless @page.nil? %>
                     <% for page in @page.ancestors.reverse %>
                     <%= link_to h(page.name), page %>&gt;<% end %>
-                    <% end %>
                 </p>
             </div>
             <div id="main">
                 <div id="page_title">
-                    <% unless @page.nil? %>
                     <h1><%= @page.name %></h1>
-                    <% end %>
                 </div>
                 <div id="content-wrapper">
                     <div id="content">
@@ -91,30 +84,27 @@
                     </div>
                 </div>
                 <div id="sidebar-wrapper">
-                    <% if @page != nil %>
                     <% unless @page.children.empty? %>
                     <div id="sidebar">
                         <ul id="submenu">
-                            <% if current_user and current_user.has_role? :admin %>
+                            <% if current_user.has_role? :admin %>
                             <% for page in @page.children %>
                             <li>
                                 <%= link_to page.name, page_path(page), :title => page.name %>
                             </li>
                             <% end %>
-                            <% end %>
-							<% if current_user and !current_user.has_role? :admin %>
+                            <% else %>
                             <% for page in @page.children %>
-							<% if page.inactive %>
-							<% else %>
+                            <% if page.inactive %>
+                            <% else %>
                             <li>
                                 <%= link_to page.name, page_path(page), :title => page.name %>
                             </li>
                             <% end %>
                             <% end %>
-							<% end %>
+                            <% end %>
                         </ul>
                     </div>
-                    <% end %>
                     <% end %>
                 </div>
             </div>

@@ -6,7 +6,8 @@ class PagesController < ApplicationController
   end
   
   def index
-    @pages = Page.all
+    @sub_pages = Array.new
+    @pages = Page.find_all_by_parent_id(nil)
   end
   
   def show
@@ -19,14 +20,26 @@ class PagesController < ApplicationController
   
   def create
     @page = Page.new(params[:page])
-    @page.content = @page.content.to_s.gsub("\r", "")
-    @page.content = @page.content.to_s.gsub("\n", "")
-    if @page.save
-      flash[:notice] = "Seite erfolgreich erstellt."
-      redirect_to @page
-    else
-      render :action => 'new'
+    i = 0
+    temp_elem = @page
+    while temp_elem.parent_id != nil
+      temp_elem = Page.find(temp_elem.parent_id)
+      i += 1
     end
+    if(i>2)
+      flash[:notice] = "Sie haben die maximale Verschachtelungstiefe erreicht."
+      render :action => 'new'
+    else
+      @page.content = @page.content.to_s.gsub("\r", "")
+      @page.content = @page.content.to_s.gsub("\n", "")
+      if @page.save
+        flash[:notice] = "Seite erfolgreich erstellt."
+        redirect_to @page
+      else
+        render :action => 'new'
+      end
+    end
+    
   end
   
   def edit
@@ -60,18 +73,72 @@ class PagesController < ApplicationController
   end
   
   def set_inactive
-    debugger
     @page = Page.find(params[:id])
     @page.update_attribute("inactive", true)
     @page.save
-    @johann = ""
     render :action => "show"
   end
-
+  
   def set_active
     @page = Page.find(params[:id])
     @page.update_attribute("inactive", false)
     @page.save
     render :action => "show"
   end
+  
+  def change_page_order
+    debugger
+    drag_elem = Page.find(params[:id])
+    drop_elem = Page.find(params[:parent_id])
+    
+    
+    i = 0
+    
+    temp_elem = drop_elem
+    
+    while temp_elem.parent_id != nil
+      temp_elem = Page.find(temp_elem.parent_id)
+      i += 1
+    end
+    
+    if(i>2)
+      render :update do |page|
+        page.replace_html 'change',  :partial => 'layouts/change'
+      end
+    else
+      if(drag_elem.id == drop_elem.id)
+        render :update do |page|
+          page.replace_html 'change',  :partial => 'layouts/change'
+        end
+      else
+        if(drop_elem.parent_id == drag_elem.id)
+          drop_elem.update_attribute("parent_id", drag_elem.parent_id)
+          children = drag_elem.children
+          children.each do |child|
+            if(child.id == drop_elem.id)
+            else
+              child.update_attribute("parent_id", drop_elem.id)
+            end
+          end
+          drag_elem.update_attribute("parent_id", drop_elem.id)
+        else
+          children = drag_elem.children
+          children.each do |child|
+            if(child.id == drop_elem.id)
+            else
+              child.update_attribute("parent_id", drag_elem.parent_id)
+            end
+          end
+          drag_elem.update_attribute("parent_id", drop_elem.id)
+        end
+        
+        render :update do |page|
+          page.replace_html 'change',  :partial => 'layouts/change'
+        end
+      end
+    end
+  end
+  
+  
+  
 end

@@ -1,0 +1,20 @@
+<div id="change">
+    <table>
+        <% @pages.each do |page| %>
+        <tr id="root_<%=page.id%>">
+            <td class="drop" id="<%=page.id%>">
+                <%= page.name %>
+                <%= draggable_element("#{page.id}", :revert => false, :ghosting => false) %>
+            </td>
+        </tr>
+		<% end %>
+    </table>
+</div>
+<div id="recivable" style="width:300px; height:300px; clear:both;">
+</div>
+<%= drop_receiving_element("recivable",
+:accept => "drop",
+:complete => "Element.hide('spinner')",
+:loading => "Element.show('spinner')",
+:hoverclass => "dragdrop_hover",
+:url => {:controller => "pages", :action => "change_page_order"}) %>

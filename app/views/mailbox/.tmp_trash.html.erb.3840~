@@ -8,5 +8,5 @@
 :accept => "inbox_messages",
 :complete => "Element.hide('spinner')",
 :loading => "Element.show('spinner')",
-:hoverclass => "dragdrop_hover",
+:hoverclass => "drophover",
 :url => {:controller => "messages", :action => "undelete"}) %>

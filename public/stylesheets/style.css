@@ -387,7 +387,71 @@ label {
 } #ancestors a {
 	color: #0d523a;
     font-size:13px;
-}#mailbox_list {
+}
+#page_change_div{
+	width:500px;
+}.drop{
+	cursor:move;
+}.drop1{
+	cursor:move;
+}
+.dragdrop_hover{
+	background-color:green;
+}
+.page_root{
+	list-style:none;
+	cursor:move;
+	padding:30px;
+}.page_root p{
+	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    float: left;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 1px;
+    border:thin solid silver;
+    width: 400px;
+}.page_sub1{
+	list-style:none;
+	cursor:move;
+}.page_sub1 p{
+	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    display: block;
+    float: left;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 30px;
+    border:thin solid silver;
+    width: 400px;
+}.page_sub2{
+	list-style:none;
+	cursor:move;
+}.page_sub2 p{
+	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    display: block;
+    float: left;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 60px;
+    border:thin solid silver;
+    width: 400px;
+}.page_sub3{
+	list-style:none;
+	cursor:move;
+}.page_sub3 p{
+	font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    float: left;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 30px;
+    border-bottom: none;
+    width: 400px;
+}
+#mailbox_list {
     float: left;
     list-style: none;
     text-align: center;
