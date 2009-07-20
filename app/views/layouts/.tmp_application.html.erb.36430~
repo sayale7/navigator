@@ -28,6 +28,7 @@
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
                     <% if current_user.has_role? :admin %>
                     |<%= link_to " Neuen Benutzer anlegen", new_user_path %> |<%= link_to " Benutzer löschen ", :controller => "users" %>
+					|<%= link_to " Seitenreihenfolge ändern ", :controller => "pages" %>
                     <% end %>
                     <% else %>
                     <%= link_to " Login", login_path %>
@@ -44,14 +45,15 @@
                         <%= link_to "Mail", inbox_path %>
                     </li>
                     <% end %>
-                    <% if current_user.has_role? :admin %>
+                    <% if current_user and current_user.has_role? :admin %>
                     <% pages = Page.roots %>
                     <% pages.each do |page| %>
                     <li>
                         <%= link_to h(page.name), page %>
                     </li>
                     <% end %>
-                    <% else %>
+					<% end %>
+					<% if current_user and !current_user.has_role? :admin %>
                     <% pages = Page.find_all_by_inactive_and_parent_id(false, nil) %>
                     <% pages.each do |page| %>
                     <li>
@@ -59,7 +61,7 @@
                     </li>
                     <% end %>
                     <% end %>
-                    <% if current_user.has_role? :admin %>
+                    <% if current_user and current_user.has_role? :admin %>
                     <li>
                         <%= link_to "New Page", new_page_path %>
                     </li>

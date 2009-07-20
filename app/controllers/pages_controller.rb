@@ -87,7 +87,6 @@ class PagesController < ApplicationController
   end
   
   def change_page_order
-    debugger
     drag_elem = Page.find(params[:id])
     drop_elem = Page.find(params[:parent_id])
     
@@ -104,11 +103,13 @@ class PagesController < ApplicationController
     if(i>2)
       render :update do |page|
         page.replace_html 'change',  :partial => 'layouts/change'
+          page.replace_html 'nav',  :partial => "layouts/nav"
       end
     else
       if(drag_elem.id == drop_elem.id)
         render :update do |page|
           page.replace_html 'change',  :partial => 'layouts/change'
+          page.replace_html 'nav',  :partial => "layouts/nav"
         end
       else
         if(drop_elem.parent_id == drag_elem.id)
@@ -133,12 +134,24 @@ class PagesController < ApplicationController
         end
         
         render :update do |page|
-          page.replace_html 'change',  :partial => 'layouts/change'
+          page.replace_html 'change',  :partial => 'layouts/change' 
+          page.replace_html 'nav',  :partial => "layouts/nav"
         end
       end
     end
   end
   
+  def set_root
+    @page_to_root = Page.find(params[:id])
+    children = @page_to_root.children
+    children.each do |child|
+      child.update_attribute("parent_id", @page_to_root.parent_id)
+    end
+    @page_to_root.update_attribute("parent_id", nil)
+    if @page_to_root.save
+      render :action => "index"
+    end
+  end
   
   
 end

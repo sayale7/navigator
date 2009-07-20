@@ -22,7 +22,6 @@
                 <p class="drop" id="<%=sub_page1.id%>">
                     <%= sub_page1.name %>
                     <%= draggable_element("#{sub_page1.id}", :revert => false, :ghosting => false) %>
-                    <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page1.id %>
                 </p>
             </li>
             <%= drop_receiving_element("recive_sub1_#{sub_page1.id}",
@@ -37,7 +36,6 @@
                     <p class="drop" id="<%=sub_page2.id%>">
                         <%= sub_page2.name %>
                         <%= draggable_element("#{sub_page2.id}", :revert => false, :ghosting => false) %>
-                        <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page2.id %>
                     </p>
                 </li>
                 <%= drop_receiving_element("recive_sub2_#{sub_page2.id}",
@@ -52,7 +50,6 @@
                         <p class="drop" id="<%=sub_page3.id%>">
                             <%= sub_page3.name %>
                             <%= draggable_element("#{sub_page3.id}", :revert => false, :ghosting => false) %>
-                            <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page3.id %>
                         </p>
                     </li>
                     <%= drop_receiving_element("recive_sub3_#{sub_page3.id}",
