@@ -57,11 +57,11 @@
                         </div>
                     </div>
                 </div>
+                <% if @page != nil %>
                 <div id="sidebar-wrapper">
-                    <% if @page != nil %>
                     <%= render :partial => "pages/page_tree" %>
-                    <% end %>
                 </div>
+                <% end %>
             </div>
             <div style="clear:both">
             </div>

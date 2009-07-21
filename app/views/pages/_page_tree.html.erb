@@ -1,4 +1,4 @@
-<div id="sidebar">
+<div id="sub_menu">
     <% unless @root_page.nil? %>
     <ul id="submenu">
         <% sub_pages_1 = @root_page.children %>
@@ -6,13 +6,13 @@
         <li>
             <%= link_to "#{sub_page_1.name}", sub_page_1 %>
         </li>
-        <ul id="submenu" style="padding-left:5px;">
+        <ul id="submenu">
             <% sub_pages_2 = sub_page_1.children %>
             <% sub_pages_2.each do |sub_page_2| %>
             <li>
                 <%= link_to "#{sub_page_2.name}", sub_page_2 %>
             </li>
-            <ul id="submenu" style="padding-left:5px;">
+            <ul id="submenu">
                 <% sub_pages_3 = sub_page_2.children %>
                 <% sub_pages_3.each do |sub_page_3| %>
                 <li>
