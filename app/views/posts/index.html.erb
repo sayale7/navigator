@@ -2,17 +2,19 @@
 <div class="post">
     <h1><%=h post.title %>
     </h1>
-	<p><%= post.created_at.strftime("Erstellt am %d. %m. %Y um %H:%M Uhr") %></p>
+    <p style="font-size:small;">
+        <%= post.created_at.strftime("%d. %m. %Y, %H:%M") %>
+    </p>
+    <br/>
     <p>
         <%= simple_format post.body %>
     </p>
 </div>
 <br/>
 <div class="clear">
-	<%= link_to 'Edit', :controller => "posts", :action => "edit", :id => post.id %> 
-	<% if current_user && (current_user.has_role? :admin) %>
-	| 
-    <%= link_to "Löschen", :controller => "posts", :action => "destroy", :id => post.id %>
-	<% end %>
+    <%= link_to 'Edit', :controller => "posts", :action => "edit", :id => post.id %>
+    <% if current_user && (current_user.has_role? :admin) %>
+    | <%= link_to "Löschen", :controller => "posts", :action => "destroy", :id => post.id %>
+    <% end %>
 </div>
 <% end %>

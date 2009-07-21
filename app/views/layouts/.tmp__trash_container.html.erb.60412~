@@ -13,7 +13,7 @@
             </td>
 			<% end %>
             <td class="link">
-                <%= link_to "Papierkorb", trash_path %>
+                <%= link_to "Papierkorb", inbox_path %>
             </td>
         </tr>
     </table>

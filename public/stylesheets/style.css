@@ -256,6 +256,9 @@ label {
     display: none;
 } .clear {
     clear: both;
+	padding-bottom:10px;
+	margin-bottom:20px;
+	border-bottom:thin solid silver;
 } #comment_display {
     width: 650px;
     padding: 10px;
@@ -476,7 +479,7 @@ label {
     width: 130px;
 } #inbox {
     float: right;
-    width: 500px;
+    width: 560px;
 } .inbox_messages {
     cursor: move;
     background: silver;
