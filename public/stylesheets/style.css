@@ -27,13 +27,13 @@ body {
     width: 100%;
     padding-top: 0px;
     margin: 5px 0px 30px;
-    border-top: medium solid silver;
+    border-top: thin solid silver;
 }
 
 h1 {
     color: #0d523a;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
     letter-spacing: 0.02em;
     line-height: 0.72em;
@@ -125,7 +125,7 @@ label {
 }
 
 /*---MAIN COLUMN---*/ #content-wrapper {
-    float: left;
+    float: right;
     width: 730px;
 	padding-top:10px;
 } #content {
@@ -146,7 +146,7 @@ label {
 }
 
 /*---SIDEBAR---*/ #sidebar-wrapper {
-    float: right;
+    float: left;
     width: 170px;
 } #sidebar {
     font-size: 90%;
@@ -379,7 +379,7 @@ label {
     color: gray;
 } #page_title {
     clear: both;
-	border-bottom:solid medium silver;
+	border-bottom:solid thin silver;
 	text-align:center;
 } #ancestors {
     padding: 3px;
@@ -460,13 +460,9 @@ label {
     margin: 0px 0;
     padding: 10px;
 } #mailbox_trash {
-    clear: left;
-    float: left;
-    list-style: none;
-    text-align: center;
-    width: 140px;
-    margin-top: 10px;
-    padding: 10px;
+    padding: 5px;
+    border: silver solid thin;
+    width: 130px;
 } #mailbox_inbox {
     padding: 5px;
     border: silver solid thin;

@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.xml
   def show
-    destroy
+    @post = Post.find(params[:id])
   end
 
   # GET /posts/new
