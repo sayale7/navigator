@@ -25,7 +25,7 @@
             <div id="header">
                 <div id="user_nav">
                     <% if current_user %>
-                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
+                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
                     <% if current_user.has_role? :admin %>
                     |<%= link_to " Neuen Benutzer anlegen", new_user_path %> |<%= link_to " Benutzer löschen ", :controller => "users" %>
                     |<%= link_to " Seitenreihenfolge ändern ", :controller => "pages" %>
@@ -38,18 +38,13 @@
             <div id="nav">
                 <%= render :partial => "layouts/nav" %>
             </div>
-            <div id="ancestors">
-                <p>
-                    <% unless @page.nil? %>
-                    <% for page in @page.ancestors.reverse %>
-                    <%= link_to h(page.name), page %>&gt;<% end %>
-                    <% end %>
-                </p>
-            </div>
             <div id="main">
                 <div id="page_title">
                     <% unless @page.nil? %>
-                    <h1><%= @page.name %></h1>
+                    <% for page in @page.ancestors.reverse %>
+                    <%= link_to h(page.name), page %>&gt;<% end %>
+                    <span style="font-size: medium; font-weight:bold;"><%= @page.name %>
+                    </span>
                     <% end %>
                 </div>
                 <div id="content-wrapper">
@@ -86,10 +81,12 @@
                             <% end %>
                         </ul>
                     </div>
+                    <% else %>
+                    <%= render :partial => "pages/page_tree" %>
                     <% end %>
                     <% else %>
                     <div id="sidebar">
-                    	<h1>Aktuelles</h1>
+                        <h1>Aktuelles</h1>
                         <ul id="submenu">
                             <% posts = Post.all %>
                             <% posts.each do |post| %>

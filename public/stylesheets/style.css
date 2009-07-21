@@ -8,7 +8,7 @@ body {
     text-align: center;
 } #page {
     margin: 15px auto;
-    width: 900px;
+    width: 1000px;
     text-align: left;
     border: 2px solid #9EA3AC;
     padding: 5px;
@@ -116,6 +116,7 @@ th {
 td {
     background: #ffffff;
     padding: 10px;
+	max-width:200px;
     overflow: hidden;
 }
 
@@ -126,7 +127,7 @@ label {
 
 /*---MAIN COLUMN---*/ #content-wrapper {
     float: right;
-    width: 730px;
+    width: 780px;
 	padding-top:10px;
 } #content {
     padding: 0px 15px;
@@ -147,7 +148,7 @@ label {
 
 /*---SIDEBAR---*/ #sidebar-wrapper {
     float: left;
-    width: 170px;
+    width: 220px;
 } #sidebar {
     font-size: 90%;
     padding: 15px;
@@ -342,7 +343,7 @@ label {
 } #submenu {
     list-style: none;
     text-align: left;
-    width: 140px;
+    width: 190px;
     padding: 5px 4px;
     margin: 0px 0;
     margin-bottom: 50px;
@@ -361,7 +362,7 @@ label {
     padding: 8px 16px 7px;
     margin: 1px 1px 1px 1px;
     border-bottom: none;
-    width: 130px;
+    width: 180px;
 } #submenu li a:hover {
     color: #FFFFFF;
     background: #49140c;

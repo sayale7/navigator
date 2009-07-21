@@ -11,7 +11,13 @@ class PagesController < ApplicationController
   end
   
   def show
+    debugger
     @page = Page.find(params[:id])
+    @root_page = Page.find(params[:id])
+    while @root_page.parent_id != nil
+      @root_page = Page.find(@root_page.parent_id)
+    end
+    
   end
   
   def new

@@ -25,7 +25,7 @@
             <div id="header">
                 <div id="user_nav">
                     <% if current_user %>
-                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>
+                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
                     <% if current_user.has_role? :admin %>
                     |<%= link_to " Neuen Benutzer anlegen", new_user_path %> |<%= link_to " Benutzer löschen ", :controller => "users" %>
                     |<%= link_to " Seitenreihenfolge ändern ", :controller => "pages" %>

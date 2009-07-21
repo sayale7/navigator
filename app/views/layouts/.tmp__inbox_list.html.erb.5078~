@@ -34,7 +34,7 @@
             </p>
         </td>
         <% end %>
-        <td style="overflow:hidden;">
+        <td>
             <%= link_to h(message.subject), :controller => "messages", :action => "read", :id => message.id %>
         </td>
         <td>

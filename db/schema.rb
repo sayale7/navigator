@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20090705221056) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "inactive"
+    t.boolean  "inactive",   :default => false, :null => false
   end
 
   create_table "posts", :force => true do |t|
