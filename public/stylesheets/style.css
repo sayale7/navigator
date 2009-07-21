@@ -369,6 +369,40 @@ label {
 } #submenu li a:hover {
     color: #FFFFFF;
     background: #49140c;
+}#submenu ul ul{
+    overflow: hidden;
+} #submenu ul li {
+} #submenu ul li a {
+    font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    float: left;
+    background: #b3f6ff;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 1px;
+    border-bottom: none;
+    width: 180px;
+} #submenu ul li a:hover {
+    color: #FFFFFF;
+    background: #49140c;
+}#submenu ul ul ul{
+    overflow: hidden;
+} #submenu ul ul li {
+} #submenu ul ul li a {
+    font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    float: left;
+    background: #eae9ec;
+    text-decoration: none;
+    padding: 8px 16px 7px;
+    margin: 1px 1px 1px 1px;
+    border-bottom: none;
+    width: 180px;
+} #submenu ul ul li a:hover {
+    color: #FFFFFF;
+    background: #49140c;
 }#user_nav {
     border: solid thin silver;
     margin: 10px;

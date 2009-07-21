@@ -32,7 +32,7 @@ class PagesController < ApplicationController
       temp_elem = Page.find(temp_elem.parent_id)
       i += 1
     end
-    if(i>2)
+    if(i>3)
       flash[:notice] = "Sie haben die maximale Verschachtelungstiefe erreicht."
       render :action => 'new'
     else

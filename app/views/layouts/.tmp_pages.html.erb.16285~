@@ -59,7 +59,43 @@
                 </div>
                 <div id="sidebar-wrapper">
                     <% if @page != nil %>
+                    <% unless @page.children.empty? %>
+                    <div id="sidebar">
+                        <ul id="submenu">
+                            <% if current_user and current_user.has_role? :admin %>
+                            <% for page in @page.children %>
+                            <li>
+                                <%= link_to page.name, page_path(page), :title => page.name %>
+                            </li>
+                            <% end %>
+                            <% end %>
+                            <% if current_user and !current_user.has_role? :admin %>
+                            <% for page in @page.children %>
+                            <% if page.inactive %>
+                            <% else %>
+                            <li>
+                                <%= link_to page.name, page_path(page), :title => page.name %>
+                            </li>
+                            <% end %>
+                            <% end %>
+                            <% end %>
+                        </ul>
+                    </div>
+                    <% else %>
                     <%= render :partial => "pages/page_tree" %>
+                    <% end %>
+                    <% else %>
+                    <div id="sidebar">
+                        <h1>Aktuelles</h1>
+                        <ul id="submenu">
+                            <% posts = Post.all %>
+                            <% posts.each do |post| %>
+                            <li>
+                                <%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %>
+                            </li>
+                            <% end %>
+                        </ul>
+                    </div>
                     <% end %>
                 </div>
             </div>

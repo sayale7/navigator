@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
     <head>
         <title><% if current_user %>
@@ -7,7 +7,7 @@
         </title>
         <%= stylesheet_link_tag 'style' %>
         <%= javascript_include_tag :fckeditor %>
-        <%= javascript_include_tag :defaults %>
+        <%= javascript_include_tag :all %>
         <%= yield(:head) %>
         <!--[if IE 6]>
             <style type="text/css" media="screen">
@@ -39,28 +39,37 @@
                 <%= render :partial => "layouts/nav" %>
             </div>
             <div id="main">
-                <div id="page_title">
-                    <% unless @page.nil? %>
-                    <% for page in @page.ancestors.reverse %>
-                    <%= link_to h(page.name), page %>&gt;<% end %>
-                    <span style="font-size: medium; font-weight:bold;"><%= @page.name %>
-                    </span>
-                    <% end %>
-                </div>
                 <div id="content-wrapper">
                     <div id="content">
                         <% flash.each do |name, msg| %>
                         <%= content_tag :div, msg, :id => "flash_#{name}" %>
                         <% end %>
-                        <div id="editorcontent">
-                            <%= yield %>
-                        </div>
+                        <% if current_user %>
+                        <%= yield %>
+                        <% end %>
                     </div>
                 </div>
                 <div id="sidebar-wrapper">
-                    <% if @page != nil %>
-                    <%= render :partial => "pages/page_tree" %>
-                    <% end %>
+                    <div id="sidebar">
+                        <h1>Neuigkeiten</h1>
+                        <ul id="submenu">
+                            <% posts = Post.all(:order => "updated_at DESC", :limit => 5) %>
+                            <% posts.each do |post| %>
+                            <li>
+                                <%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %>
+                            </li>
+                            <% end %>
+                        </ul>
+                        <h1>Geänderte Seiten</h1>
+						<ul id="submenu">
+                            <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
+                            <% pages.each do |page| %>
+                            <li>
+                                <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+                            </li>
+                            <% end %>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div style="clear:both">
