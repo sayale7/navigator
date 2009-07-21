@@ -372,12 +372,10 @@ label {
     list-style: none;
     text-align: left;
     width: 190px;
-    margin: 0px 0;
-    margin-bottom: 50px;
-    margin-right: 20px;
     overflow: hidden;
 }#sub_menu ul {
 	padding:0 0 0 5px;
+	margin:0;
 	clear:both;
 }#sub_menu ul li {
 }#sub_menu ul li a{
@@ -386,7 +384,8 @@ label {
 }#sub_menu ul li a:hover{
     color: #FFFFFF;
     background: #49140c;
-}#sub_menu ul ul{
+}
+#sub_menu ul ul{
 	padding:0 0 0 5px;
 	clear:both;
 }#sub_menu ul ul li {
