@@ -51,21 +51,13 @@
                 </div>
                 <div id="sidebar-wrapper">
                     <div id="sidebar">
-                        <h1>Neuigkeiten</h1>
-                        <ul id="submenu">
-                            <% posts = Post.all(:order => "updated_at DESC", :limit => 5) %>
-                            <% posts.each do |post| %>
-                            <li>
-                                <%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %>
-                            </li>
-                            <% end %>
-                        </ul>
-                        <h1>Geänderte Seiten</h1>
+                        <h1>Zuletzt geändert</h1>
 						<ul id="submenu">
                             <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
                             <% pages.each do |page| %>
-                            <li>
+                            <li style="background-color:silver; border-bottom:20px solid white;">
                                 <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+								<p style=" text-align:center;"><%= page.updated_at.strftime("%d. %m. %Y, %H:%M")%></p>
                             </li>
                             <% end %>
                         </ul>
