@@ -53,7 +53,7 @@
                     <div id="sidebar">
                         <h1>Neuigkeiten</h1>
                         <ul id="submenu">
-                            <% posts = Post.all(:order => "updated_at DESC", :limit => 5) %>
+                            <% posts = Post.all(:limit => 5) %>
                             <% posts.each do |post| %>
                             <li>
                                 <%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %>
