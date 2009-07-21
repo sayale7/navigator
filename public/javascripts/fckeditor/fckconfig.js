@@ -152,7 +152,7 @@ FCKConfig.FontFormats	= 'p;h1;h2;h3;h4;h5;h6;pre;address;div' ;
 FCKConfig.FontNames		= 'Verdana' ;
 FCKConfig.FontSizes		= 'smaller;larger;xx-small;x-small;small;medium;large;x-large;xx-large' ;
 
-//FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
+FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
 FCKConfig.TemplatesXmlPath	= FCKConfig.EditorPath + 'fcktemplates.xml' ;
 
 FCKConfig.SpellChecker			= 'ieSpell' ;	// 'ieSpell' | 'SpellerPages'
@@ -195,11 +195,11 @@ FCKConfig.RemoveFormatTags = 'b,big,code,del,dfn,em,font,i,ins,kbd,q,samp,small,
 // Attributes that will be removed
 FCKConfig.RemoveAttributes = 'class,style,lang,width,height,align,hspace,valign' ;
 
-/*FCKConfig.CustomStyles =
+FCKConfig.CustomStyles =
 {
 	'Red Title'	: { Element : 'h3', Styles : { 'color' : 'Red' } }
 };
-*/
+
 // Do not add, rename or remove styles here. Only apply definition changes.
 FCKConfig.CoreStyles =
 {
