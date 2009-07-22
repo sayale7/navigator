@@ -3,8 +3,7 @@
     <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>
     <ul>
-        <% pages = Page.find_all_by_parent_id(nil, :order => "updated_at DESC") %>
-        <% pages.each do |page| %>
+        <% Page.find_all_by_parent_id(nil).each do |page| %>
         <li id="recive_root_<%=page.id%>">
             <p class="drop" id="<%=page.id%>">
                 <%= page.name %>
@@ -18,12 +17,12 @@
         :hoverclass => "dragdrop_hover",
         :url => {:controller => "pages", :action => "change_page_order", :parent_id => page.id}) %>
         <ul style="margin-left:20px;">
-            <% sub_pages1 = Page.find_all_by_parent_id(page, :order => "updated_at DESC") %>
-            <% sub_pages1.each do |sub_page1| %>
+            <% for sub_page1 in page.children %>
             <li id="recive_sub1_<%=sub_page1.id%>">
                 <p class="drop" id="<%=sub_page1.id%>">
                     <%= sub_page1.name %>
                     <%= draggable_element("#{sub_page1.id}", :revert => false, :ghosting => false) %>
+                    <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page1.id %>
                 </p>
             </li>
             <%= drop_receiving_element("recive_sub1_#{sub_page1.id}",
@@ -33,8 +32,7 @@
             :hoverclass => "dragdrop_hover",
             :url => {:controller => "pages", :action => "change_page_order", :parent_id => sub_page1.id}) %>
             <ul style="margin-left:20px;">
-                <% sub_pages2 = Page.find_all_by_parent_id(sub_page1, :order => "updated_at DESC") %>
-                <% sub_pages2.each do |sub_page2| %>
+                <% for sub_page2 in sub_page1.children %>
                 <li id="recive_sub2_<%=sub_page2.id%>">
                     <p class="drop" id="<%=sub_page2.id%>">
                         <%= sub_page2.name %>
@@ -49,8 +47,7 @@
                 :hoverclass => "dragdrop_hover",
                 :url => {:controller => "pages", :action => "change_page_order", :parent_id => sub_page2.id}) %>
                 <ul style="margin-left:20px;">
-                    <% sub_pages3 = Page.find_all_by_parent_id(sub_page2, :order => "updated_at DESC") %>
-                    <% sub_pages3.each do |sub_page3| %>
+                    <% for sub_page3 in sub_page2.children %>
                     <li id="recive_sub3_<%=sub_page3.id%>">
                         <p class="drop" id="<%=sub_page3.id%>">
                             <%= sub_page3.name %>
