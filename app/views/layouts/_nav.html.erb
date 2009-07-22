@@ -8,7 +8,7 @@
     </li>
     <% end %>
     <% if current_user and current_user.has_role? :admin %>
-    <% pages = Page.roots %>
+    <% pages = Page.find_all_by_parent_id(nil) %>
     <% pages.each do |page| %>
     <li>
         <%= link_to h(page.name), page %>

@@ -2,19 +2,19 @@
     <% unless @root_page.nil? %>
     <% if !@root_page.children.empty? %>
     <ul id="submenu">
-        <% sub_pages_1 = @root_page.children %>
+		<% sub_pages_1 = Page.find_all_by_parent_id(@root_page.id, :order => "updated_at DESC")%>
         <% sub_pages_1.each do |sub_page_1| %>
         <li>
             <%= link_to "#{sub_page_1.name}", sub_page_1 %>
         </li>
         <ul id="submenu">
-            <% sub_pages_2 = sub_page_1.children %>
+            <% sub_pages_2 = Page.find_all_by_parent_id(sub_page_1.id, :order => "updated_at DESC") %>
             <% sub_pages_2.each do |sub_page_2| %>
             <li>
                 <%= link_to "#{sub_page_2.name}", sub_page_2 %>
             </li>
             <ul id="submenu">
-                <% sub_pages_3 = sub_page_2.children %>
+                <% sub_pages_3 = Page.find_all_by_parent_id(sub_page_2.id, :order => "updated_at DESC") %>
                 <% sub_pages_3.each do |sub_page_3| %>
                 <li>
                     <%= link_to "#{sub_page_3.name}", sub_page_3 %>
