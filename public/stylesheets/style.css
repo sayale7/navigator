@@ -201,6 +201,7 @@ label {
 	font-size:small;
 }.pages ol{
 	margin-left:0px;
+	padding-left:0px;
 } .pages ol li{
 	font-family:Verdana;
 	font-size:small;
