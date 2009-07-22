@@ -199,7 +199,13 @@ label {
 } .pages ul li{
 	font-family:Verdana;
 	font-size:small;
-} .pages a, p {
+}.pages ol{
+	margin-left:35px;
+} .pages ol li{
+	font-family:Verdana;
+	font-size:small;
+}
+ .pages a, p {
 	font-family:Verdana;
 	font-size:small;
 }
