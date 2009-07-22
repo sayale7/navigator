@@ -194,21 +194,20 @@ label {
 }.post ul {
     padding-left: 35px;
 } .pages {
-} .pages ul{
-	margin-left:35px;
-} .pages ul li{
-	font-family:Verdana;
-	font-size:small;
-}.pages ol{
-	margin-left:0px;
-	padding-left:0px;
-} .pages ol li{
-	font-family:Verdana;
-	font-size:small;
-}
- .pages a, p {
-	font-family:Verdana;
-	font-size:small;
+} .pages ul {
+    margin-left: 35px;
+} .pages ul li {
+    font-family: Verdana;
+    font-size: small;
+}.pages ol {
+    margin-left: 35px;
+    padding-left: 0px;
+} .pages ol li {
+    font-family: Verdana;
+    font-size: small;
+} .pages a, p {
+    font-family: Verdana;
+    font-size: small;
 }
 
 /*---STYLES---*/ #extra {
