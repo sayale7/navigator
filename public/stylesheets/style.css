@@ -123,6 +123,9 @@ td {
 label {
     font-size: .9em;
     line-height: 1.2em;
+} .change_places {
+    height: 10px;
+    list-style: none;
 }
 
 /*---MAIN COLUMN---*/ #content-wrapper {
@@ -190,8 +193,11 @@ label {
     clear: both;
 }.post ul {
     padding-left: 35px;
-} .pages ul {
-    padding-left: 35px;
+} .pages {
+} .pages ul{
+} .pages ul li{
+} .pages a, p {
+	font-family:Verdana;
 }
 
 /*---STYLES---*/ #extra {
@@ -374,35 +380,34 @@ label {
     width: 190px;
     overflow: hidden;
 }#sub_menu ul {
-	padding:0 0 0 5px;
-	margin:0;
-	clear:both;
+    padding: 0 0 0 5px;
+    margin: 0;
+    clear: both;
 }#sub_menu ul li {
-}#sub_menu ul li a{
-	list-style:none;
-	background-color:#deffd5;
-}#sub_menu ul li a:hover{
+}#sub_menu ul li a {
+    list-style: none;
+    background-color: #deffd5;
+}#sub_menu ul li a:hover {
     color: #FFFFFF;
     background: #49140c;
-}
-#sub_menu ul ul{
-	padding:0 0 0 5px;
-	clear:both;
+}#sub_menu ul ul {
+    padding: 0 0 0 5px;
+    clear: both;
 }#sub_menu ul ul li {
-}#sub_menu ul ul li a{
-	list-style:none;
-	background-color:#b3f6ff;
-}#sub_menu ul ul li a:hover{
+}#sub_menu ul ul li a {
+    list-style: none;
+    background-color: #b3f6ff;
+}#sub_menu ul ul li a:hover {
     color: #FFFFFF;
     background: #49140c;
-}#sub_menu ul ul ul{
-	padding:0 0 0 5px;
-	clear:both;
+}#sub_menu ul ul ul {
+    padding: 0 0 0 5px;
+    clear: both;
 }#sub_menu ul ul ul li {
-}#sub_menu ul ul ul li a{
-	list-style:none;
-	background-color:#eae9ec;
-}#sub_menu ul ul ul li a:hover{
+}#sub_menu ul ul ul li a {
+    list-style: none;
+    background-color: #eae9ec;
+}#sub_menu ul ul ul li a:hover {
     color: #FFFFFF;
     background: #49140c;
 }#user_nav {
@@ -435,7 +440,9 @@ label {
     cursor: move;
 } .dragdrop_hover {
     background-color: green;
-} .page_root {
+} .dragdrop_hover_between {
+    background-color: yellow;
+}.page_root {
     list-style: none;
     cursor: move;
     padding: 30px;

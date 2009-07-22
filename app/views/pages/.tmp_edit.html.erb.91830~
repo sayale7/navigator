@@ -1,0 +1,15 @@
+<% title "Edit Page" %>
+
+<% form_for @page do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+<p>
+	<%= fckeditor_textarea("page", "content", :height => '500')%></p>
+</p>
+
+  <p><%= f.submit "Submit" %></p>
+
+<% end %>

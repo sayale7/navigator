@@ -1,0 +1,72 @@
+<div id="change">
+    <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+    <ul>
+        <% Page.find_all_by_parent_id(nil).each do |page| %>
+        <li id="recive_root_<%=page.id%>">
+            <p class="drop" id="<%=page.id%>">
+                <%= page.name %>
+                <%= draggable_element("#{page.id}", :revert => false, :ghosting => false) %>
+            </p>
+        </li>
+        <%= drop_receiving_element("recive_root_#{page.id}",
+        :accept => "drop",
+        :complete => "Element.hide('spinner')",
+        :loading => "Element.show('spinner')",
+        :hoverclass => "dragdrop_hover",
+        :url => {:controller => "pages", :action => "change_page_order", :parent_id => page.id}) %>
+        <ul style="margin-left:20px;">
+            <% for sub_page1 in page.children %>
+            <li id="recive_sub1_<%=sub_page1.id%>">
+                <p class="drop" id="<%=sub_page1.id%>">
+                    <%= sub_page1.name %>
+                    <%= draggable_element("#{sub_page1.id}", :revert => false, :ghosting => false) %>
+                    <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page1.id %>
+                </p>
+            </li>
+            <%= drop_receiving_element("recive_sub1_#{sub_page1.id}",
+            :accept => "drop",
+            :complete => "Element.hide('spinner')",
+            :loading => "Element.show('spinner')",
+            :hoverclass => "dragdrop_hover",
+            :url => {:controller => "pages", :action => "change_page_order", :parent_id => sub_page1.id}) %>
+            <ul style="margin-left:20px;">
+                <% for sub_page2 in sub_page1.children %>
+                <li id="recive_sub2_<%=sub_page2.id%>">
+                    <p class="drop" id="<%=sub_page2.id%>">
+                        <%= sub_page2.name %>
+                        <%= draggable_element("#{sub_page2.id}", :revert => false, :ghosting => false) %>
+                        <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page2.id %>
+                    </p>
+                </li>
+                <%= drop_receiving_element("recive_sub2_#{sub_page2.id}",
+                :accept => "drop",
+                :complete => "Element.hide('spinner')",
+                :loading => "Element.show('spinner')",
+                :hoverclass => "dragdrop_hover",
+                :url => {:controller => "pages", :action => "change_page_order", :parent_id => sub_page2.id}) %>
+                <ul style="margin-left:20px;">
+                    <% for sub_page3 in sub_page2.children %>
+                    <li id="recive_sub3_<%=sub_page3.id%>">
+                        <p class="drop" id="<%=sub_page3.id%>">
+                            <%= sub_page3.name %>
+                            <%= draggable_element("#{sub_page3.id}", :revert => false, :ghosting => false) %>
+                            <%= link_to "(als Hauptseite)", :action => "set_root", :id => sub_page3.id %>
+                        </p>
+                    </li>
+                    <%= drop_receiving_element("recive_sub3_#{sub_page3.id}",
+                    :accept => "drop",
+                    :complete => "Element.hide('spinner')",
+                    :loading => "Element.show('spinner')",
+                    :hoverclass => "dragdrop_hover",
+                    :url => {:controller => "pages", :action => "change_page_order", :parent_id => sub_page3.id}) %>
+                    <% end %>
+                </ul>
+                <% end %>
+            </ul>
+            <% end %>
+        </ul>
+        <% end %>
+    </ul>
+</div>
