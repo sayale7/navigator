@@ -195,6 +195,7 @@ label {
     padding-left: 35px;
 } .pages {
 } .pages ul{
+	margin-left:35px;
 } .pages ul li{
 } .pages a, p {
 	font-family:Verdana;
