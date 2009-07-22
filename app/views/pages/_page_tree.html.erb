@@ -1,5 +1,6 @@
 <div id="sub_menu">
     <% unless @root_page.nil? %>
+    <% if !@root_page.children.empty? %>
     <ul id="submenu">
         <% sub_pages_1 = @root_page.children %>
         <% sub_pages_1.each do |sub_page_1| %>
@@ -24,6 +25,22 @@
         </ul>
         <% end %>
     </ul>
+    <% else %>
+    <div id="sidebar">
+        <h1>Zuletzt geändert</h1>
+        <ul id="submenu">
+            <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
+            <% pages.each do |page| %>
+            <li style="background-color:silver; border-bottom:20px solid white;">
+                <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+                <p style=" text-align:center;">
+                    <%= page.updated_at.strftime("%d. %m. %Y, %H:%M") %>
+                </p>
+            </li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
     <% else %>
     <div id="sidebar">
         <h1>Zuletzt geändert</h1>
