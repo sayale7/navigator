@@ -50,18 +50,22 @@
                     </div>
                 </div>
                 <div id="sidebar-wrapper">
+                    <% if current_user %>
                     <div id="sidebar">
                         <h1>Zuletzt geändert</h1>
-						<ul id="submenu">
+                        <ul id="submenu">
                             <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
                             <% pages.each do |page| %>
                             <li style="background-color:silver; border-bottom:20px solid white;">
                                 <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
-								<p style=" text-align:center;"><%= page.updated_at.strftime("%d. %m. %Y, %H:%M")%></p>
+                                <p style=" text-align:center;">
+                                    <%= page.updated_at.strftime("%d. %m. %Y, %H:%M") %>
+                                </p>
                             </li>
                             <% end %>
                         </ul>
                     </div>
+                    <% end %>
                 </div>
             </div>
             <div style="clear:both">

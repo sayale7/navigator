@@ -61,6 +61,22 @@
                 <div id="sidebar-wrapper">
                     <%= render :partial => "pages/page_tree" %>
                 </div>
+                <% else %>
+                <div id="sidebar">
+                    <h1>Zuletzt geändert</h1>
+                    <ul id="submenu">
+                        <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
+                        <% pages.each do |page| %>
+                        <li style="background-color:silver; border-bottom:20px solid white;">
+                            <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+                            <p style=" text-align:center;">
+                                <%= page.updated_at.strftime("%d. %m. %Y, %H:%M") %>
+                            </p>
+                        </li>
+                        <% end %>
+                    </ul>
+                </div>
+                <% end %>
                 <% end %>
             </div>
             <div style="clear:both">
