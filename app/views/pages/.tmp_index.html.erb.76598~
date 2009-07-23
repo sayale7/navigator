@@ -1,3 +1,0 @@
-<div id="change">
-	 <%= render :partial => "layouts/change" %>
-</div>

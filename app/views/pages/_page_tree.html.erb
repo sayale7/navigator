@@ -33,8 +33,8 @@
             <% pages.each do |page| %>
             <li style="background-color:silver; border-bottom:20px solid white;">
                 <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
-                <p style=" text-align:center;">
-                    <%= page.updated_at.strftime("%d. %m. %Y, %H:%M") %>
+                <p style=" text-align:center; font-size:smaller;">
+                    <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
                 </p>
             </li>
             <% end %>
@@ -50,7 +50,7 @@
             <li style="background-color:silver; border-bottom:20px solid white;">
                 <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
                 <p style=" text-align:center;">
-                    <%= page.updated_at.strftime("%d. %m. %Y, %H:%M") %>
+                    <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
                 </p>
             </li>
             <% end %>
