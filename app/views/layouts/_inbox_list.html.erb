@@ -16,11 +16,11 @@
     <tr class="inbox_messages" id="<%= message.id %>">
         <% unless message.read %>
         <td>
-            <%= image_tag("email.jpg", :border=>0) %>
+            <%= link_to image_tag("email.jpg", :border=>0), :controller => "messages", :action => "read", :id => message.id %>
         </td>
         <% else %>
         <td>
-            <%= image_tag("openemail.jpg", :border=>0) %>
+            <%= link_to image_tag("openemail.jpg", :border=>0) , :controller => "messages", :action => "read", :id => message.id  %>
         </td>
         <% end %>
         <% if message.author != nil %>
@@ -35,7 +35,7 @@
         </td>
         <% end %>
         <td style="overflow:hidden;">
-            <%= link_to h(message.subject), :controller => "messages", :action => "read", :id => message.id %>
+            <%=  message.subject %>
         </td>
         <td>
             <%= message.updated_at.strftime("%d. %m. %Y um %H:%M Uhr") %>

@@ -15,15 +15,6 @@
     </tr>
     <% @messages.reverse.each do |message| %>
     <tr class="inbox_messages" id="<%= message.id %>">
-    	<% unless message.read %>
-        <td>
-            <%= link_to image_tag("email.jpg", :border=>0), :controller => "messages", :action => "read", :id => message.id %>
-        </td>
-        <% else %>
-        <td>
-            <%= link_to image_tag("openemail.jpg", :border=>0) , :controller => "messages", :action => "read", :id => message.id  %>
-        </td>
-        <% end %>
         <% if message.author != nil %>
         <td>
             <%= message.author.username %>

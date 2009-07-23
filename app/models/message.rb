@@ -1,8 +1,5 @@
 class Message < ActiveRecord::Base
   
-  validates_presence_of :subject, :message => "(Betreff) Darf nicht leer sein"
-  validates_presence_of :to, :message => "(Empfänger) Darf nicht leer sein"
-  
   belongs_to :author, :class_name => "User"
   
   has_many :message_copies
