@@ -15,7 +15,7 @@ class Message < ActiveRecord::Base
   
   
   def prepare_copies
-    @emails = to.uniq
+    get_users_from_collection(to)
     @emails.each do |touser|
       get_users(touser)
       @users.each do |user|
@@ -26,7 +26,6 @@ class Message < ActiveRecord::Base
   end
   
   def prepare_recipients
-    @emails = to.uniq
     @emails.each do |touser|
       get_users(touser)
       @users.each do |user|
@@ -39,4 +38,27 @@ class Message < ActiveRecord::Base
   def get_users(touser)
     @users = User.find_all_by_email(touser)
   end
+  
+  def get_users_from_collection(tousers)
+    @emails = Array.new
+    if(tousers.include?("1"))
+      users = User.all
+      users.each do |user|
+        @emails.push(user.email)
+      end
+    end
+    if(tousers.include?("2"))
+      users = User.all(:conditions => ("username != 'joe'"))
+      users.each do |user|
+        @emails.push(user.email)
+      end
+    end
+    if(tousers.include?("0"))
+      if(tousers.size == 1)
+      else
+        @emails = tousers.uniq
+      end
+    end
+  end
+  
 end

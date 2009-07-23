@@ -15,12 +15,19 @@ class SentController < ApplicationController
   
   def create
     @message = current_user.sent_messages.build(params[:message])
-    if @message.save
-      flash[:notice] = "Nachricht geschickt."
-      redirect_to :action => "index"
-    else
+    if(@message.to.include?("0") && (@message.to.size == 1))
+      @message.destroy
+      flash[:notice] = "Bitte geben sie mindestens einen Empfänger ein!"
       get_users
       render :action => "new"
+    else
+      if @message.save
+        flash[:notice] = "Nachricht geschickt."
+        redirect_to :action => "index"
+      else
+        get_users
+        render :action => "new"
+      end
     end
   end
   
