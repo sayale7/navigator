@@ -46,7 +46,7 @@
         <% pages.each do |page| %>
         <li style="background-color:silver; border-bottom:20px solid white;">
             <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
-            <p style=" text-align:center; font-size:smaller;">
+            <p style=" text-align:center;">
                 <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
             </p>
         </li>

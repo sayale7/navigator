@@ -153,9 +153,10 @@ label {
     float: left;
     width: 220px;
 } #sidebar {
-    font-size: 90%;
-    padding: 15px;
-    padding-top: 0px;
+    list-style: none;
+    text-align: left;
+    width: 190px;
+    overflow: hidden;
 } #sidebar h3 {
     color: #222222;
     font-family: Helvetica, Arial, Verdana, sans-serif;
