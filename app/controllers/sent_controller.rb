@@ -15,19 +15,12 @@ class SentController < ApplicationController
   
   def create
     @message = current_user.sent_messages.build(params[:message])
-    if(@message.to.include?("0") && (@message.to.size == 1))
-      @message.destroy
-      flash[:notice] = "Bitte geben sie mindestens einen Empfänger ein!"
+    if @message.save
+      flash[:notice] = "Nachricht geschickt."
+      redirect_to :action => "index"
+    else
       get_users
       render :action => "new"
-    else
-      if @message.save
-        flash[:notice] = "Nachricht geschickt."
-        redirect_to :action => "index"
-      else
-        get_users
-        render :action => "new"
-      end
     end
   end
   
@@ -41,6 +34,10 @@ class SentController < ApplicationController
       @namesarray.push(user.username+" ")
       @idsarray.push(user.email)
     end
+    @namesarray.push("An alle  ")
+    @idsarray.push("alle@dasjetzt.at")
+    @namesarray.push("An alle außer Joe ")
+    @idsarray.push("alleausserjoe@dasjetzt.at")
   end
   
 end

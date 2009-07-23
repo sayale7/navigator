@@ -1,7 +1,7 @@
 <% div_for @post do %>
 <h1><%=  @post.title %></h1>
 <p>
-    <%= @post.created_at.strftime("Erstellt am %d. %m. %Y um %H:%M Uhr") %>
+    <%= @post.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
 </p>
 <br/>
 <%= simple_format @post.body %>

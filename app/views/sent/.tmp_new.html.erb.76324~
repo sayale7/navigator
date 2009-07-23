@@ -9,6 +9,9 @@
             <td class="full">
                 <table>
                     <tr>
+                        <%= select_tag "message[to][]", options_for_select({"" => "0", "An alle" => "1", "An alle außer Joe" => "2"}), :onchange => remote_function(:url => {:controller => "messages", :action => "new"}) %>
+                    </tr>
+                    <tr>
                         <div tabindex="-1" id="ids" class="clearfix tokenizer">
                             <span class="tokenizer_stretcher">^_^</span>
                             <span class="tab_stop"><input type="text" id="hidden_input" tabindex="-1"></span>

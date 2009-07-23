@@ -1,5 +1,7 @@
 class Message < ActiveRecord::Base
   
+  validates_presence_of :to, :message => "(Empfänger) Darf nicht leer sein"
+  
   belongs_to :author, :class_name => "User"
   
   has_many :message_copies
@@ -37,25 +39,29 @@ class Message < ActiveRecord::Base
   end
   
   def get_users_from_collection(tousers)
+    debugger
     @emails = Array.new
-    if(tousers.include?("1"))
+    if tousers.include?("alle@dasjetzt.at") && !tousers.include?("alleausserjoe@dasjetzt.at")
       users = User.all
       users.each do |user|
         @emails.push(user.email)
       end
     end
-    if(tousers.include?("2"))
+    @emails = Array.new
+    if tousers.include?("alle@dasjetzt.at") && tousers.include?("alleausserjoe@dasjetzt.at")
+      users = User.all
+      users.each do |user|
+        @emails.push(user.email)
+      end
+    end
+    if !tousers.include?("alle@dasjetzt.at") && tousers.include?("alleausserjoe@dasjetzt.at")
       users = User.all(:conditions => ("username != 'joe'"))
       users.each do |user|
         @emails.push(user.email)
       end
     end
-    if(tousers.include?("0"))
-      if(tousers.size == 1)
-      else
-        @emails = tousers.uniq
-      end
+    if !tousers.include?("alle@dasjetzt.at") && !tousers.include?("alleausserjoe@dasjetzt.at")
+      @emails = tousers.uniq
     end
   end
-  
 end

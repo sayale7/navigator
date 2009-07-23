@@ -2,6 +2,8 @@
     <table>
         <tr>
             <th>
+            </th>
+            <th>
                 An
             </th>
             <th>
@@ -13,6 +15,9 @@
         </tr>
         <% for message in @messages %>
         <tr>
+            <td>
+                <%= link_to image_tag("email.jpg", :border=>0), sent_path(message) %>
+            </td>
             <td>
                 <% Recipient.find_all_by_message_id(message.id).each do |recipient| %>
                 <% users = User.find_all_by_id(recipient.user_id) %>
@@ -27,7 +32,7 @@
                 <% end %>
             </td>
             <td>
-                <%= link_to h(message.subject), sent_path(message) %>
+                <%= message.subject %>
             </td>
             <td>
                 <%= message.created_at.strftime("%d. %m. %Y um %H:%M Uhr") %>
