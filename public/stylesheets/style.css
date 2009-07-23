@@ -155,16 +155,27 @@ label {
 } #sidebar {
     list-style: none;
     text-align: left;
-    width: 190px;
+    width: 220px;
     overflow: hidden;
-} #sidebar h3 {
-    color: #222222;
-    font-family: Helvetica, Arial, Verdana, sans-serif;
-    font-size: 17px;
-    font-weight: bold;
-    margin: 0px;
-} #sidebar p {
-    line-height: 1.4em;
+}#sidebar ul {
+} #sidebar li {
+	background-color:silver; 
+	border-bottom:20px solid white;
+} #sidebar li a {
+    font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: block;
+    float: left;
+    background: #deffd5;
+    text-decoration: none;
+    border-bottom: none;
+    width: 220px;
+	padding:10px;
+} #sidebar li a:hover {
+    color: #FFFFFF;
+    background: #49140c;
+}#sidebar li p {
+	
 }
 
 /*---ARTICLE---*/ .entry {
@@ -362,14 +373,9 @@ label {
 } #submenu {
     list-style: none;
     text-align: left;
-    width: 190px;
-    padding: 5px 4px;
-    margin: 0px 0;
+    width: 220px;
     margin-bottom: 50px;
-    margin-right: 20px;
-    overflow: hidden;
 }#submenu ul {
-    overflow: hidden;
 } #submenu li {
 } #submenu li a {
     font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -378,7 +384,7 @@ label {
     float: left;
     background: #deffd5;
     text-decoration: none;
-    padding: 8px 16px 7px;
+    padding: 8px 16px 7px 7px;
     margin: 1px 1px 1px 1px;
     border-bottom: none;
     width: 180px;
@@ -388,7 +394,7 @@ label {
 } #sub_menu {
     list-style: none;
     text-align: left;
-    width: 190px;
+    width: 220px;
     overflow: hidden;
 }#sub_menu ul {
     padding: 0 0 0 5px;
