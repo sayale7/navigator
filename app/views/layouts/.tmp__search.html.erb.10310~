@@ -1,2 +1,0 @@
-<%= text_field_tag "such_eintrag" %>
-<%= button_to "Suchen", :controller => "search" %>

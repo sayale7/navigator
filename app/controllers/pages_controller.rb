@@ -10,6 +10,7 @@ class PagesController < ApplicationController
     @pages = Page.find_all_by_parent_id(nil)
   end
   
+  
   def show
     debugger
     @page = Page.find(params[:id])

@@ -35,7 +35,7 @@
         <li>
             <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
             <p style=" text-align:center; font-size:smaller;">
-                <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
+                <%= page.updated_at.strftime("%d.%m.%Y, %H:%M") %>
             </p>
         </li>
         <% end %>
@@ -51,7 +51,7 @@
         <li>
             <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
             <p style=" text-align:center; font-size:smaller;">
-                <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
+                <%= page.updated_at.strftime("%d.%m.%Y, %H:%M") %>
             </p>
         </li>
         <% end %>

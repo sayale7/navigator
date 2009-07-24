@@ -1,0 +1,60 @@
+<% unless @root_page.nil? %>
+<% if !@root_page.children.empty? %>
+<div id="sub_menu">
+    <ul id="submenu">
+        <% sub_pages_1 = Page.find_all_by_parent_id(@root_page.id, :order => "updated_at DESC") %>
+        <% sub_pages_1.each do |sub_page_1| %>
+        <li>
+            <%= link_to "#{sub_page_1.name}", sub_page_1 %>
+        </li>
+        <ul id="submenu">
+            <% sub_pages_2 = Page.find_all_by_parent_id(sub_page_1.id, :order => "updated_at DESC") %>
+            <% sub_pages_2.each do |sub_page_2| %>
+            <li>
+                <%= link_to "#{sub_page_2.name}", sub_page_2 %>
+            </li>
+            <ul id="submenu">
+                <% sub_pages_3 = Page.find_all_by_parent_id(sub_page_2.id, :order => "updated_at DESC") %>
+                <% sub_pages_3.each do |sub_page_3| %>
+                <li>
+                    <%= link_to "#{sub_page_3.name}", sub_page_3 %>
+                </li>
+                <% end %>
+            </ul>
+            <% end %>
+        </ul>
+        <% end %>
+    </ul>
+</div>
+<% else %>
+<div id="sidebar">
+    <h1>Zuletzt geändert</h1>
+    <ul>
+        <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
+        <% pages.each do |page| %>
+        <li>
+            <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+            <p style=" text-align:center; font-size:smaller;">
+                <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
+            </p>
+        </li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+<% else %>
+<div id="sidebar">
+    <h1>Zuletzt geändert</h1>
+    <ul>
+        <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
+        <% pages.each do |page| %>
+        <li>
+            <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
+            <p style=" text-align:center; font-size:smaller;">
+                <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
+            </p>
+        </li>
+        <% end %>
+    </ul>
+</div>
+<% end %>

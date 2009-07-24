@@ -212,7 +212,7 @@ label {
     font-family: Verdana;
     font-size: small;
 }.pages ol {
-    margin-left: 22px;
+    margin-left: 20px;
     padding-left: 0px;
 } .pages ol li {
     font-family: Verdana;
@@ -429,7 +429,7 @@ label {
     background: #49140c;
 }#user_nav {
     border: solid thin silver;
-    margin: 10px;
+    margin: 5px;
     padding: 5px;
     float: right;
     font-size: 12px;
@@ -545,13 +545,20 @@ label {
     background: transparent;
     border: none;
 } #search_results {
-   padding:20px;
+   padding:5px;
+   clear:both;
 }
 #search_results ul{
+	
 }
 #search_results ul li{
 	list-style:none;
 	margin-bottom:20px;
+	padding:0;
+}
+#search_form{
+	float:right;
+	height:35px;
 }
 
 /*

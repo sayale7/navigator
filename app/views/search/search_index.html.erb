@@ -1,0 +1,30 @@
+<div id="search_results">
+    <% unless @pages.empty? %>
+    <h1>Seiten</h1>
+    <ul style="background-color:#fff5de;">
+        <% @pages.each do |page| %>
+        <li style="border-bottom:solid 5px silver; padding:5px;">
+            <h4><%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %></h4>
+            <%= simple_format page.content %>
+        </li>
+        <% end %>
+    </ul>
+    <br/>
+    <br/>
+    <br/>
+    <% else %>
+    keine Seiten mit dem angegebenen Kriterium gefunden<% end %>
+    <% unless @posts.empty? %>
+    <h1>Neuigkeiten</h1>
+    <ul style="background-color:#e1ffdb;">
+        <% @posts.each do |post| %>
+        <li style="border-bottom:solid 5px silver; padding:5px;">
+            <h4><%= link_to post.title, :controller => "posts", :action => "show", :id => post.id %></h4>
+            <%= simple_format post.body %>
+            <% end %>
+        </li>
+    </ul>
+    <% else %>
+	<br/>
+    keine Neuigkeiten mit dem angegebenen Kriterium gefunden<% end %>
+</div>

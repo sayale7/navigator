@@ -22,7 +22,7 @@
     </head>
     <body>
         <div id="page">
-            <div id="header">
+            <div id="header"><%= render :partial => "layouts/search" %>
                 <div id="user_nav">
                     <% if current_user %>
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
@@ -51,7 +51,6 @@
                 </div>
                 <div id="sidebar-wrapper">
                     <% if current_user %>
-                    <%= render :partial => "layouts/search" %>
                     <div id="sidebar">
                         <h1>Zuletzt geändert</h1>
                         <ul>
@@ -60,7 +59,7 @@
                             <li>
                                 <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
                                 <p style=" text-align:center; font-size:smaller;">
-                                    <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
+                                    <%= page.updated_at.strftime("%d.%m.%Y, %H:%M") %>
                                 </p>
                             </li>
                             <% end %>

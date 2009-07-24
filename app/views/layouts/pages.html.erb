@@ -23,7 +23,8 @@
     <body>
         <div id="page">
             <div id="header">
-            	<a name="thetop"></a>
+                <%= render :partial => "layouts/search" %>
+                <a name="thetop"></a>
                 <div id="user_nav">
                     <% if current_user %>
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
@@ -60,7 +61,6 @@
                 </div>
                 <% if @page != nil %>
                 <div id="sidebar-wrapper">
-                    <%= render :partial => "layouts/search" %>
                     <%= render :partial => "pages/page_tree" %>
                 </div>
                 <% end %>
