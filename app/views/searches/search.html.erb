@@ -1,0 +1,12 @@
+<div id="search_results">
+    <h1 style="text-decoration:underline;">Suchresultate</h1>
+	<br/>
+    <ul>
+        <% @results.each do |result| %>
+        <h1><%= result.name %></h1>
+        <li>
+            <%= link_to "#{result.name}", result %>
+        </li>
+        <% end %>
+    </ul>
+</div>

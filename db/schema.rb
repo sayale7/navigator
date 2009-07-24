@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090705221056) do
+ActiveRecord::Schema.define(:version => 20090723232238) do
 
   create_table "folders", :force => true do |t|
     t.integer  "user_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(:version => 20090705221056) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "inactive",   :default => false, :null => false
+    t.boolean  "order",      :default => false, :null => false
+    t.boolean  "activ",      :default => false, :null => false
   end
 
   create_table "posts", :force => true do |t|
@@ -71,6 +73,12 @@ ActiveRecord::Schema.define(:version => 20090705221056) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "searches", :force => true do |t|
+    t.string   "query"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -60,6 +60,7 @@
                 </div>
                 <% if @page != nil %>
                 <div id="sidebar-wrapper">
+                    <%= render :partial => "layouts/search" %>
                     <%= render :partial => "pages/page_tree" %>
                 </div>
                 <% end %>

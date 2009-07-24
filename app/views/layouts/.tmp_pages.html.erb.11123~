@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
     <head>
         <title><% if current_user %>
@@ -7,7 +7,7 @@
         </title>
         <%= stylesheet_link_tag 'style' %>
         <%= javascript_include_tag :fckeditor %>
-        <%= javascript_include_tag :all %>
+        <%= javascript_include_tag :defaults %>
         <%= yield(:head) %>
         <!--[if IE 6]>
             <style type="text/css" media="screen">
@@ -23,6 +23,7 @@
     <body>
         <div id="page">
             <div id="header">
+            	<a name="thetop"></a>
                 <div id="user_nav">
                     <% if current_user %>
                     <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
@@ -39,35 +40,29 @@
                 <%= render :partial => "layouts/nav" %>
             </div>
             <div id="main">
+                <div id="page_title">
+                    <% unless @page.nil? %>
+                    <% for page in @page.ancestors.reverse %>
+                    <%= link_to h(page.name), page %>&gt;<% end %>
+                    <span style="font-size: medium; font-weight:bold;"><%= @page.name %>
+                    </span>
+                    <% end %>
+                </div>
                 <div id="content-wrapper">
                     <div id="content">
                         <% flash.each do |name, msg| %>
                         <%= content_tag :div, msg, :id => "flash_#{name}" %>
                         <% end %>
-                        <% if current_user %>
-                        <%= yield %>
-                        <% end %>
+                        <div id="editorcontent">
+                            <%= yield %>
+                        </div>
                     </div>
                 </div>
+                <% if @page != nil %>
                 <div id="sidebar-wrapper">
-                    <% if current_user %>
-                    <%= render :partial => "layouts/search" %>
-                    <div id="sidebar">
-                        <h1>Zuletzt geändert</h1>
-                        <ul>
-                            <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>
-                            <% pages.each do |page| %>
-                            <li>
-                                <%= link_to page.name, :controller => "pages", :action => "show", :id => page.id %>
-                                <p style=" text-align:center; font-size:smaller;">
-                                    <%= page.updated_at.strftime("%d.%m.%Y,%H:%M") %>
-                                </p>
-                            </li>
-                            <% end %>
-                        </ul>
-                    </div>
-                    <% end %>
+                    <%= render :partial => "pages/page_tree" %>
                 </div>
+                <% end %>
             </div>
             <div style="clear:both">
             </div>

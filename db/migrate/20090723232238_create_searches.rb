@@ -1,6 +1,7 @@
 class CreateSearches < ActiveRecord::Migration
   def self.up
     create_table :searches do |t|
+      t.string :query
 
       t.timestamps
     end

@@ -51,8 +51,8 @@
                 </div>
                 <div id="sidebar-wrapper">
                     <% if current_user %>
-                    <%= render :partial => "layouts/search" %>
                     <div id="sidebar">
+                    	<%= render :partial => "layouts/search" %>
                         <h1>Zuletzt geändert</h1>
                         <ul>
                             <% pages = Page.all(:conditions => ("inactive = false"), :order => "updated_at DESC", :limit => 5) %>

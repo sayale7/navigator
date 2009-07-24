@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :searches
+
+  map.resources :searches
+
   
   map.resources :posts
 

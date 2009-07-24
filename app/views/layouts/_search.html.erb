@@ -1,2 +1,10 @@
-<%= text_field_tag "such_eintrag" %>
-<%= button_to "Suchen", :controller => "search" %>
+<% form_for :search, :url => {:controller => "searches", :action => "search"} do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.text_field :query %>
+  </p>
+  <p style="text-align:right;">
+    <%= f.submit 'Suchen' %>
+  </p>
+<% end %>
