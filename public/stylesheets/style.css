@@ -39,6 +39,9 @@ h1 {
     line-height: 0.72em;
     text-transform: uppercase;
 }
+p{
+	font-size:16px;
+}
 
 h2 {
     color: #451811;
@@ -175,7 +178,7 @@ label {
     color: #FFFFFF;
     background: #49140c;
 }#sidebar li p {
-	
+	font-size:small;
 }
 
 /*---ARTICLE---*/ .entry {
