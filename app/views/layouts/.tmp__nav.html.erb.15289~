@@ -27,8 +27,5 @@
     <li>
         <%= link_to "New Page", new_page_path %>
     </li>
-    <li>
-        <%= render :partial => "layouts/search" %>
-    </li>
     <% end %>
 </ul>

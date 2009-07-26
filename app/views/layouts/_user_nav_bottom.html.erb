@@ -1,0 +1,27 @@
+<div id="user_nav_bottom">
+    <% if current_user %>
+    <ul>
+        <li>
+            <%= link_to "Profil bearbeiten", edit_user_path(:current) %>
+        </li>
+        <li>
+            <%= link_to "Logout ", logout_path %>
+        </li>
+        <% if current_user.has_role? :admin %>
+        <li>
+            <%= link_to " Neuer User", new_user_path %>
+        </li>
+        <li>
+            <%= link_to " User löschen ", :controller => "users" %>
+        </li>
+        <li>
+            <%= link_to " Seitenreihenfolge ändern ", :controller => "pages" %>
+        </li>
+        <% end %>
+        <% else %>
+        <li>
+            <%= link_to " Login", login_path %>
+        </li>
+    </ul>
+    <% end %>
+</div>

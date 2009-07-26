@@ -1,12 +1,19 @@
+<p style="font-size:small; padding-bottom:10px;">
+    Mit dem Log In verpflichtest Du Dich, die auf diesen Seiten enthaltenen Informationen nicht weiter zu geben. Sie sind nur für Dich und Deine Kollegen bestimmt und jeder Einblick einer betriebsfremden Person ist zu verhindern.
+</p>
 <% form_for @user_session do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :username %><br />
+<%= f.error_messages %>
+<p>
+    <%= f.label :username %>
+    <br/>
     <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.label :password %><br />
+</p>
+<p>
+    <%= f.label :password %>
+    <br/>
     <%= f.password_field :password %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+</p>
+<p>
+    <%= f.submit "Submit" %>
+</p>
 <% end %>

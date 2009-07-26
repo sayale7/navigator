@@ -16,9 +16,5 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation  %>
   </p>
-  <p>
-    <%= f.label :mail %><br />
-    <%= f.check_box :mail %>
-  </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>

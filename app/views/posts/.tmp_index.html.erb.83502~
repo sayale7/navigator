@@ -1,12 +1,9 @@
-<div style="padding-bottom:20px;">
-<%= link_to "neuen Eintrag erstellen", new_post_path %>
-</div>
 <% @posts.reverse.each do |post| %>
 <div class="post">
     <h1><%=h post.title %>
     </h1>
     <p style="font-size:smaller;">
-        <%= post.updated_at.strftime("%d.%m.%Y, %H:%M") %>
+        <%= post.updated_at.strftime("%d.%m.%Y,%H:%M") %>
     </p>
     <br/>
     <p>

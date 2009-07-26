@@ -39,7 +39,6 @@ class Message < ActiveRecord::Base
   end
   
   def get_users_from_collection(tousers)
-    debugger
     @emails = Array.new
     if tousers.include?("alle@dasjetzt.at") && !tousers.include?("alleausserjoe@dasjetzt.at")
       users = User.all

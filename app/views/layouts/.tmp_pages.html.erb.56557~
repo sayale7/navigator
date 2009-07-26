@@ -23,7 +23,21 @@
     <body>
         <div id="page">
             <div id="header">
-                <a name="top"></a>
+                <% if current_user %>
+                <%= render :partial => "layouts/search" %>
+                <% end %>
+                <a name="thetop"></a>
+                <div id="user_nav">
+                    <% if current_user %>
+                    <%= link_to "Profil bearbeiten", edit_user_path(:current) %>|<%= link_to "Logout ", logout_path %>|<%= link_to "Neuigkeit erstellen", new_post_path %>
+                    <% if current_user.has_role? :admin %>
+                    |<%= link_to " Neuen Benutzer anlegen", new_user_path %> |<%= link_to " Benutzer löschen ", :controller => "users" %>
+                    |<%= link_to " Seitenreihenfolge ändern ", :controller => "pages" %>
+                    <% end %>
+                    <% else %>
+                    <%= link_to " Login", login_path %>
+                    <% end %>
+                </div>
             </div>
             <div id="nav">
                 <%= render :partial => "layouts/nav" %>
@@ -39,17 +53,19 @@
                 </div>
                 <div id="content-wrapper">
                     <div id="content">
+                        <% flash.each do |name, msg| %>
+                        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+                        <% end %>
                         <div id="editorcontent">
                             <%= yield %>
                         </div>
                     </div>
                 </div>
+                <% if @page != nil %>
                 <div id="sidebar-wrapper">
-                    <% if @page != nil %>
                     <%= render :partial => "pages/page_tree" %>
-                    <% end %>
-                    <%= render :partial => "layouts/user_nav_bottom" %>
                 </div>
+                <% end %>
             </div>
             <div style="clear:both">
             </div>

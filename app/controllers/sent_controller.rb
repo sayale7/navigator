@@ -14,8 +14,18 @@ class SentController < ApplicationController
   end
   
   def create
+    debugger
     @message = current_user.sent_messages.build(params[:message])
     if @message.save
+      recived_messages = MessageCopy.find_all_by_message_id(@message.id)
+      user_for_id = recived_messages[0]
+      user_id = user_for_id.recipient_id
+      users = User.find_all_by_id(user_id)
+      users.each do |user|
+        if user.mail
+          MessageMailer.deliver_recived(@message, user)
+        end
+      end
       flash[:notice] = "Nachricht geschickt."
       redirect_to :action => "index"
     else

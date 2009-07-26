@@ -28,6 +28,7 @@ body {
     padding-top: 0px;
     margin: 5px 0px 30px;
     border-top: thin solid silver;
+    margin-top: 10px;
 }
 
 h1 {
@@ -37,10 +38,10 @@ h1 {
     font-weight: bold;
     letter-spacing: 0.02em;
     line-height: 0.72em;
-    text-transform: uppercase;
 }
-p{
-	font-size:16px;
+
+p {
+    font-size: 16px;
 }
 
 h2 {
@@ -155,6 +156,7 @@ label {
 /*---SIDEBAR---*/ #sidebar-wrapper {
     float: left;
     width: 220px;
+    padding-top: 7px;
 } #sidebar {
     list-style: none;
     text-align: left;
@@ -162,8 +164,8 @@ label {
     overflow: hidden;
 }#sidebar ul {
 } #sidebar li {
-	background-color:silver; 
-	border-bottom:20px solid white;
+    background-color: silver;
+    border-bottom: 20px solid white;
 } #sidebar li a {
     font-family: "Lucida Sans", "Lucida Grande", Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -173,12 +175,34 @@ label {
     text-decoration: none;
     border-bottom: none;
     width: 220px;
-	padding:10px;
+    padding: 10px;
 } #sidebar li a:hover {
     color: #FFFFFF;
     background: #49140c;
 }#sidebar li p {
-	font-size:small;
+    font-size: small;
+} #user_nav_bottom {
+	margin:0px;
+	padding:5px;
+	padding-top:20px;
+}#user_nav_bottom ul {
+	list-style:none;
+    margin: 0px;
+    padding: 0px;
+}#user_nav_bottom ul li {
+    margin: 0;
+    padding: 0;
+}#user_nav_bottom ul li a {
+	text-decoration:none;
+	background-color:white;
+	color:black;
+	margin:0;
+	padding:0;
+    font-size: smaller;
+}#user_nav_bottom li a:hover {
+	text-decoration:underline;
+	background-color:white;
+	color:black;
 }
 
 /*---ARTICLE---*/ .entry {
@@ -431,7 +455,7 @@ label {
     color: #FFFFFF;
     background: #49140c;
 }#user_nav {
-	clear:both;
+    clear: both;
     border: solid thin silver;
     margin: 5px;
     padding: 5px;
@@ -444,9 +468,11 @@ label {
 } #user_nav a:hover {
     color: gray;
 } #page_title {
+    padding: 5px;
     clear: both;
     border-bottom: solid thin silver;
     text-align: center;
+    margin-bottom: 10px;
 } #ancestors {
     padding: 3px;
     clear: both;
@@ -549,20 +575,20 @@ label {
     background: transparent;
     border: none;
 } #search_results {
-   padding:5px;
-   clear:both;
-}
-#search_results ul{
-	
-}
-#search_results ul li{
-	list-style:none;
-	margin-bottom:20px;
-	padding:0;
-}
-#search_form{
-	float:right;
-	height:35px;
+    padding: 5px;
+    clear: both;
+} #search_results ul {
+} #search_results ul li {
+    list-style: none;
+    margin-bottom: 20px;
+    padding: 0;
+} #search_form {
+    float: right;
+    margin-top: 1px;
+    height: 25px;
+    padding: 2px;
+    padding-top: 4px;
+    background-color: #ffdddd;
 }
 
 /*
