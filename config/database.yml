@@ -41,16 +41,8 @@ production:
   adapter: mysql
   encoding: utf8
   reconnect: false
-  database: rails_development
+  database: jetzt_production
   pool: 5
-  username: root
+  username: admin
   password: aplhma6
-  socket: /tmp/mysql.sock
-#  adapter: mysql
-#  encoding: utf8
-#  reconnect: false
-#  database: jetzt_production
-#  pool: 5
-#  username: admin
-#  password: aplhma6
-#  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/run/mysqld/mysqld.sock

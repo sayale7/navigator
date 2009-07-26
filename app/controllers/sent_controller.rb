@@ -14,7 +14,6 @@ class SentController < ApplicationController
   end
   
   def create
-    debugger
     @message = current_user.sent_messages.build(params[:message])
     if @message.save
       recived_messages = MessageCopy.find_all_by_message_id(@message.id)
