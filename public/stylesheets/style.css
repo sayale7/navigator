@@ -428,6 +428,7 @@ label {
     color: #FFFFFF;
     background: #49140c;
 }#user_nav {
+	clear:both;
     border: solid thin silver;
     margin: 5px;
     padding: 5px;
