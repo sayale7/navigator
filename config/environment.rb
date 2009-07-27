@@ -43,19 +43,6 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
   
-  config.action_mailer.raise_delivery_errors = true
-  
-  # set delivery method to :smtp, :sendmail or :test
-  config.action_mailer.delivery_method = :smtp
-  
-  # these options are only needed if you choose smtp delivery
-  config.action_mailer.smtp_settings = {
-    :address        => 'mail.kohler-it.net',
-    :port           => 25,
-    :domain         => 'kohler-it.net',
-    :authentication => :login,
-    :user_name      => 'dasjetzt',
-    :password       => 'aplhma6'
-  }
+
   
 end

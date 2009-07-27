@@ -1,9 +1,0 @@
-<% form_tag search_path, :method => 'get' do |f|%>
-
-  <p>
-    <%= text_field_tag :search %>
-  </p>
-  <p style="text-align:right;">
-    <%= submit_tag 'Suchen' %>
-  </p>
-<% end %>
